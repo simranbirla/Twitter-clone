@@ -5,6 +5,7 @@
 
 .App {
   text-align: center;
+  margin: 20px;
 }
 
 .App-logo {
@@ -40,4 +41,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }

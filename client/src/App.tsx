@@ -8,17 +8,16 @@ function App() {
     <Router>
       <div className="App">
         Hello
-        <Navigation />
+        <Navigation signIn={false} />
         <Routes>
           <Route path="/" element={<div>Heyyy</div>} />
-          <Route path="/about" element={<div>About</div>} />
-          <Route path="/contact" element={<div>Contact</div>} />
           <Route
             path="/profile/:id"
             element={<div>Profile should be here</div>}
           />
           <Route path="/tweet/:id" element={<div>Single tweet display</div>} />
           <Route path="/login" element={<div>Login</div>} />
+          <Route path="/bookmarks" element={<div>Bookmark</div>} />
         </Routes>
       </div>
     </Router>
