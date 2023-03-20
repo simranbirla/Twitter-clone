@@ -4,6 +4,7 @@ dotenv.config();
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import passport from "passport";
+import cors from "cors";
 import tweetRoutes from "./routes/tweetRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.static("public"));
 app.use(express.json());
 app.use(passport.initialize());
+app.use(cors());
 
 const connectDB = async () => {
   try {
