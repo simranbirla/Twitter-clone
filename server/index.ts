@@ -43,10 +43,6 @@ app.all("*", (err: any, req: Request, res: Response) => {
   return res.json({ message: `Cannot find ${req.url} url ` });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  return res.send({ message: "Error", err });
-});
-
 app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log("PORT started");
