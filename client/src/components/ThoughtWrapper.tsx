@@ -1,15 +1,22 @@
 import React from "react";
 import { IThought } from "../interfaces/Thought";
-import Thought from "./Thought";
+import ThoughtContainer from "./ThoughtContainer";
 
 interface IThoughtWrapper {
   thought: IThought;
 }
 
 export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
+  const { _id, likes, retweets, text } = thought;
   return (
     <div>
-      <Thought thought={thought} />
+      <ThoughtContainer
+        id={_id}
+        likes={likes}
+        shares={retweets}
+        text={text}
+        parent={true}
+      />
     </div>
   );
 }

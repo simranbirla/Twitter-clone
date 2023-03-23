@@ -4,11 +4,13 @@ import { IThought } from "../interfaces/Thought";
 
 interface IThoughtList {
   thought: IThought;
+  parent: boolean;
+  getThought: () => void;
 }
 
-export default function Thought({ thought }: IThoughtList) {
+export default function Thought({ thought, getThought, parent }: IThoughtList) {
   return (
-    <div>
+    <>
       {thought ? (
         <div>
           <ThoughtContainer
@@ -16,6 +18,8 @@ export default function Thought({ thought }: IThoughtList) {
             likes={thought.likes}
             shares={thought.retweets}
             text={thought.text}
+            parent={parent}
+            getThought={getThought}
           />
           {thought.childIds?.map((child) => (
             <div key={child._id}>
@@ -24,6 +28,7 @@ export default function Thought({ thought }: IThoughtList) {
                 likes={child.likes as number}
                 shares={child.retweets as number}
                 text={child.text as string}
+                parent={false}
               />
             </div>
           ))}
@@ -31,6 +36,6 @@ export default function Thought({ thought }: IThoughtList) {
       ) : (
         <div>Loading</div>
       )}
-    </div>
+    </>
   );
 }

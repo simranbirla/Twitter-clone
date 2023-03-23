@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ThoughtContainer from "../components/ThoughtContainer";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 
@@ -21,9 +22,15 @@ export default function Thoughts() {
       Thoughts
       {thoughts ? (
         thoughts.map((thought) => (
-          <div key={thought._id}>
+          <div key={thought._id} className="thought">
             <Link to={`/thought/${thought._id}`}>Click</Link>
-            <div>{thought.text}</div>
+            <ThoughtContainer
+              id={thought._id}
+              likes={thought.likes}
+              shares={thought.retweets}
+              text={thought.text}
+              parent={true}
+            />
           </div>
         ))
       ) : (

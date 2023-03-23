@@ -18,5 +18,13 @@ export default function SingleThought() {
     getThought();
   }, []);
 
-  return <>{thought ? <Thought thought={thought} /> : <div>Loading</div>}</>;
+  return (
+    <>
+      {thought ? (
+        <Thought thought={thought} getThought={getThought} parent={true} />
+      ) : (
+        <div>Loading</div>
+      )}
+    </>
+  );
 }
