@@ -48,3 +48,14 @@
   flex-direction: column;
   text-align: left;
 }
+
+input {
+  border: 2px solid rgb(156, 156, 156);
+  padding: 10px;
+  margin: 10px;
+}
+
+.thought {
+ border: 1px solid rgb(4, 142, 255);
+  margin: 10px 
+}
