@@ -5,6 +5,7 @@ import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import passport from "passport";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import tweetRoutes from "./routes/tweetRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
@@ -17,6 +18,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(cors());
+app.use(cookieParser());
 
 const connectDB = async () => {
   try {

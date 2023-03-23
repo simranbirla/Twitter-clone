@@ -108,11 +108,13 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("jwt", { session: false }, (err: any, user: any) => {
     console.log("heyy", user);
     if (err) {
+      console.log("hello");
       return res.status(401).json({ error: err.message });
     }
     if (!user) {
       return res.status(401).json({ error: "User not authorized" });
     }
+    req.user = user;
     next();
   })(req, res, next);
 };
@@ -122,7 +124,7 @@ export const getSignedToken = (user: IUser) => {
     { id: user._id },
     process.env.JWT_SECRET_KEY as string,
     {
-      expiresIn: 10,
+      expiresIn: "7d",
     }
   );
   return token;
@@ -131,9 +133,24 @@ export const getSignedToken = (user: IUser) => {
 export const sendToken = (req: Request, res: Response) => {
   try {
     const token = getSignedToken(req.user as IUser);
+    const cookieOptions = {
+      expires: new Date(
+        Date.now() +
+          (process.env.JWT_COOKIE_EXPIRES_IN as unknown as number) *
+            24 *
+            60 *
+            60 *
+            1000
+      ),
+      httpOnly: true,
+      //secure: true,
+    };
+
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+
+    res.cookie("jwt", token, cookieOptions);
     return res.send({
       status: 200,
-      token,
       data: req.user,
     });
   } catch (e) {
