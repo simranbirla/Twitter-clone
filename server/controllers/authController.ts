@@ -1,7 +1,7 @@
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import { CookieOptions, NextFunction, Request, Response } from "express";
 import passport from "passport";
 import User, { IUser } from "../model/userModel";
 
@@ -133,7 +133,7 @@ export const getSignedToken = (user: IUser) => {
 export const sendToken = (req: Request, res: Response) => {
   try {
     const token = getSignedToken(req.user as IUser);
-    const cookieOptions = {
+    const cookieOptions: CookieOptions = {
       expires: new Date(
         Date.now() +
           (process.env.JWT_COOKIE_EXPIRES_IN as unknown as number) *
@@ -143,10 +143,9 @@ export const sendToken = (req: Request, res: Response) => {
             1000
       ),
       httpOnly: true,
+      domain: "localhost",
       //secure: true,
     };
-
-    res.setHeader("Access-Control-Allow-Credentials", "true");
 
     res.cookie("jwt", token, cookieOptions);
     return res.send({
