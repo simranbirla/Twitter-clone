@@ -32,10 +32,6 @@ export default function ThoughtContainer({
         parentId: id,
         text: thought,
       },
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmQ5OTU5MjFlMDkyNTI2ZDYxZmNiNSIsImlhdCI6MTY3OTMxMTg4MywiZXhwIjoxNjc5OTE2NjgzfQ.HU7vr8qhOaoUVsaXHPimFNqbv6l8y6qPTDaP0xLOULs",
-      },
     });
     setThought("");
     if (parent) {
