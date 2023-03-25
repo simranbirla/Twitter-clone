@@ -1,9 +1,10 @@
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
+import { Strategy as JWTStrategy } from "passport-jwt";
 import jwt from "jsonwebtoken";
 import { CookieOptions, NextFunction, Request, Response } from "express";
 import passport from "passport";
 import User, { IUser } from "../model/userModel";
+import { cookieExtractor } from "../utils/cookieExtractor";
 
 passport.use(
   "signup",
@@ -69,7 +70,7 @@ passport.use(
   "jwt",
   new JWTStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: cookieExtractor,
       secretOrKey: process.env.JWT_SECRET_KEY as string,
     },
     (jwt_payload, done) => {
