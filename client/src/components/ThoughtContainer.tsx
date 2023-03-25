@@ -35,9 +35,9 @@ export default function ThoughtContainer({
     });
     setThought("");
     if (parent) {
-      getChildThoughts();
-    } else {
       getThought && getThought();
+    } else {
+      getChildThoughts();
     }
     console.log(data);
   };
