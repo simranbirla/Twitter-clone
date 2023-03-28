@@ -4,8 +4,9 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import Bookmarks from "./pages/Bookmarks";
 import Login from "./pages/Login";
+import ReThoughts from "./pages/ReThoughts";
 import SingleThought from "./pages/SingleThought";
-import Thoughts from "./pages/Thoughts";
+import AllThoughts from "./pages/AllThoughts";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         Hello
         <Navigation signIn={false} />
         <Routes>
-          <Route path="/" Component={Thoughts} />
+          <Route path="/" Component={AllThoughts} />
           <Route
             path="/profile/:id"
             element={<div>Profile should be here</div>}
@@ -22,6 +23,7 @@ function App() {
           <Route path="/thought/:id" Component={SingleThought} />
           <Route path="/login" Component={Login} />
           <Route path="/bookmarks" Component={Bookmarks} />
+          <Route path="/rethoughts" Component={ReThoughts} />
         </Routes>
       </div>
     </Router>

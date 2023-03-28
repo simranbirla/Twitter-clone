@@ -4,7 +4,7 @@ import ThoughtContainer from "../components/ThoughtContainer";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 
-export default function Thoughts() {
+export default function AllThoughts() {
   const [thoughts, setThoughts] = useState<IThought[]>([]);
 
   const getAllThoughts = async () => {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ThoughtContainer from "../components/ThoughtContainer";
-import { IThought } from "../interfaces/Thought";
+import { IBookmark } from "../interfaces/Bookmark";
 import { makeRequest } from "../utils/makeRequest";
 
 export default function Bookmarks() {
-  const [bookmarks, setBookmarks] = useState<IThought[]>([]);
+  const [bookmarks, setBookmarks] = useState<IBookmark[]>([]);
 
   const getBookmarks = async () => {
     const { data } = await makeRequest("/bookmark");
@@ -21,14 +22,17 @@ export default function Bookmarks() {
     <div>
       {bookmarks ? (
         <>
-          {bookmarks.map((bookmark) => (
-            <ThoughtContainer
-              id={bookmark._id}
-              likes={bookmark.likes}
-              shares={bookmark.retweets}
-              text={bookmark.text}
-              parent={true}
-            />
+          {bookmarks.map(({ tweetId: thought }) => (
+            <div key={thought._id} className="thought">
+              <Link to={`/thought/${thought._id}`}>Click</Link>
+              <ThoughtContainer
+                id={thought._id}
+                likes={thought.likes}
+                shares={thought.retweets}
+                text={thought.text}
+                parent={true}
+              />
+            </div>
           ))}
         </>
       ) : (

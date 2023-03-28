@@ -23,6 +23,9 @@ export default function Navigation({ signIn }: INavigation) {
           <li>
             <Link to={`/bookmarks/`}>Bookmarks</Link>
           </li>
+          <li>
+            <Link to="/rethoughts">ReThoughts</Link>
+          </li>
         </ul>
         <button>Think</button>
       </nav>

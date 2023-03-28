@@ -1,6 +1,7 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
+import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
 
 export interface IThoughtContainer {
@@ -20,27 +21,8 @@ export default function ThoughtContainer({
   parent,
   getThought,
 }: IThoughtContainer) {
-  const [thought, setThought] = useState<string>();
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
-
-  const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-    const { data } = await makeRequest("/tweet", {
-      method: "POST",
-      data: {
-        parentId: id,
-        text: thought,
-      },
-    });
-    setThought("");
-    if (parent) {
-      getThought && getThought();
-    } else {
-      getChildThoughts();
-    }
-    console.log(data);
-  };
 
   const getChildThoughts = async () => {
     if (showChild) {
@@ -56,21 +38,20 @@ export default function ThoughtContainer({
     <div>
       <div className="thought">
         {text}
-        <p>
-          Likes: {likes ?? 0} Shares: {shares ?? 0}
-        </p>
-
-        <input
-          placeholder="Add your thought"
-          onChange={(e) => setThought(e.target.value)}
-          value={thought}
+        <ThoughtForm
+          parent={parent}
+          id={id}
+          getThought={getThought}
+          getChildThoughts={getChildThoughts}
         />
-        <button onClick={handleClick}>Tell</button>
         {!parent && (
           <button onClick={getChildThoughts}>
             {showChild ? "Hide replies" : "Show replies"}
           </button>
         )}
+        <p>
+          Likes: {likes ?? 0} reThought: {shares ?? 0}
+        </p>
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper thought={child} key={child._id} />
