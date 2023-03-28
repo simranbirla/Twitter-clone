@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { IThought } from "../interfaces/Thought";
+import React, { useEffect, useState } from "react";
+import { ISavedThoughts, IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
@@ -58,6 +58,17 @@ export default function ThoughtContainer({
     });
     console.log(data);
   };
+
+  const getBookmarks = async () => {
+    console.log("heyyyyyy");
+    const { data }: { data: ISavedThoughts[] } = await makeRequest("/bookmark");
+    const bookmarkTweet = data.find((thought) => thought.tweetId._id === id);
+    setBookmark(bookmarkTweet ? true : false);
+  };
+
+  useEffect(() => {
+    getBookmarks();
+  }, []);
 
   return (
     <div>
