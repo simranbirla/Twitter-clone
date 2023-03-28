@@ -10,3 +10,8 @@ export interface IThought {
 }
 
 export type IChildThought = Partial<IThought>;
+
+export interface ISavedThoughts {
+  tweetId: IThought[];
+  userId: string;
+}

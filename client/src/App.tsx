@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import ReThoughts from "./pages/ReThoughts";
 import SingleThought from "./pages/SingleThought";
 import AllThoughts from "./pages/AllThoughts";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" Component={Login} />
           <Route path="/bookmarks" Component={Bookmarks} />
           <Route path="/rethoughts" Component={ReThoughts} />
+          <Route path="/signup" Component={SignUp} />
         </Routes>
       </div>
     </Router>

@@ -23,6 +23,7 @@ export default function ThoughtContainer({
 }: IThoughtContainer) {
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
+  const [bookmark, setBookmark] = useState<boolean>(false);
 
   const getChildThoughts = async () => {
     if (showChild) {
@@ -32,6 +33,30 @@ export default function ThoughtContainer({
       setChildThoughts(data.childIds);
       setShowChild(true);
     }
+  };
+
+  const likeThought = async () => {
+    const { data } = await makeRequest(`/like/${id}`, {
+      method: "POST",
+    });
+    getThought && getThought();
+    console.log(data);
+  };
+
+  const reThought = async () => {
+    const { data } = await makeRequest(`/retweet/${id}`, {
+      method: "POST",
+    });
+    getThought && getThought();
+
+    console.log(data);
+  };
+
+  const addBookmark = async () => {
+    const { data } = await makeRequest(`/bookmark/${id}`, {
+      method: "POST",
+    });
+    console.log(data);
   };
 
   return (
@@ -52,6 +77,9 @@ export default function ThoughtContainer({
         <p>
           Likes: {likes ?? 0} reThought: {shares ?? 0}
         </p>
+        <button onClick={likeThought}>❤️</button>
+        <button onClick={reThought}>📤</button>
+        <button onClick={addBookmark}>{bookmark ? "📑" : "📖"}</button>
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper thought={child} key={child._id} />

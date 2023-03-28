@@ -12,8 +12,13 @@ export default function Thoughts({ type }: { type: string }) {
     setThoughts(data);
   };
 
+  console.log(thoughts);
   useEffect(() => {
     getThoughts();
+
+    return () => {
+      setThoughts([]);
+    };
   }, []);
 
   return (
@@ -29,6 +34,7 @@ export default function Thoughts({ type }: { type: string }) {
               shares={thought.retweets}
               text={thought.text}
               parent={true}
+              getThought={getThoughts}
             />
           </div>
         ))
