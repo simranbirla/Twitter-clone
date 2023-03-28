@@ -31,7 +31,15 @@ export const getBookmarkTweets = async (req: Request, res: Response) => {
   const user = req.user as IUser;
 
   const bookmarkedTweets = await Bookmark.find({ userId: user.id })
-    .populate("tweetId")
+    .populate([
+      {
+        path: "tweetId",
+        populate: {
+          path: "userId",
+          select: "name username",
+        },
+      },
+    ])
     .exec();
 
   return res.json({ message: "Bookmarked tweets", data: bookmarkedTweets });
