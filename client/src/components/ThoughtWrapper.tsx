@@ -1,5 +1,7 @@
 import React from "react";
+import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
+import { getIsBookmarked } from "../utils/getIsBookmarked";
 import ThoughtContainer from "./ThoughtContainer";
 
 interface IThoughtWrapper {
@@ -8,6 +10,8 @@ interface IThoughtWrapper {
 
 export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
   const { _id, likes, retweets, text } = thought;
+  const { bookmarks } = useBookmarkContext();
+
   return (
     <div>
       <ThoughtContainer
@@ -16,6 +20,7 @@ export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
         shares={retweets}
         text={text}
         parent={true}
+        isBookmark={getIsBookmarked(bookmarks, _id)}
       />
     </div>
   );

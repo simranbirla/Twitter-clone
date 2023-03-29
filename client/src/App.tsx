@@ -8,26 +8,29 @@ import ReThoughts from "./pages/ReThoughts";
 import SingleThought from "./pages/SingleThought";
 import AllThoughts from "./pages/AllThoughts";
 import SignUp from "./pages/SignUp";
+import { BookmarkProvider } from "./context/Bookmark";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        Hello
-        <Navigation signIn={false} />
-        <Routes>
-          <Route path="/" Component={AllThoughts} />
-          <Route
-            path="/profile/:id"
-            element={<div>Profile should be here</div>}
-          />
-          <Route path="/thought/:id" Component={SingleThought} />
-          <Route path="/login" Component={Login} />
-          <Route path="/bookmarks" Component={Bookmarks} />
-          <Route path="/rethoughts" Component={ReThoughts} />
-          <Route path="/signup" Component={SignUp} />
-        </Routes>
-      </div>
+      <BookmarkProvider>
+        <div className="App">
+          Hello
+          <Navigation signIn={false} />
+          <Routes>
+            <Route path="/" Component={AllThoughts} />
+            <Route
+              path="/profile/:id"
+              element={<div>Profile should be here</div>}
+            />
+            <Route path="/thought/:id" Component={SingleThought} />
+            <Route path="/login" Component={Login} />
+            <Route path="/bookmarks" Component={Bookmarks} />
+            <Route path="/rethoughts" Component={ReThoughts} />
+            <Route path="/signup" Component={SignUp} />
+          </Routes>
+        </div>
+      </BookmarkProvider>
     </Router>
   );
 }

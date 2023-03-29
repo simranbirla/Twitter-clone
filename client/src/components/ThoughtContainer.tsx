@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { ISavedThoughts, IThought } from "../interfaces/Thought";
+import React, { useState } from "react";
+import { useBookmarkContext } from "../context/Bookmark";
+import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
@@ -10,6 +11,7 @@ export interface IThoughtContainer {
   likes: number;
   shares: number;
   parent: boolean;
+  isBookmark: boolean;
   getThought?: () => void;
 }
 
@@ -19,11 +21,12 @@ export default function ThoughtContainer({
   likes,
   shares,
   parent,
+  isBookmark = false,
   getThought,
 }: IThoughtContainer) {
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
-  const [bookmark, setBookmark] = useState<boolean>(false);
+  const { getBookmarks } = useBookmarkContext();
 
   const getChildThoughts = async () => {
     if (showChild) {
@@ -53,22 +56,11 @@ export default function ThoughtContainer({
   };
 
   const addBookmark = async () => {
-    const { data } = await makeRequest(`/bookmark/${id}`, {
+    await makeRequest(`/bookmark/${id}`, {
       method: "POST",
     });
-    console.log(data);
-  };
-
-  const getBookmarks = async () => {
-    console.log("heyyyyyy");
-    const { data }: { data: ISavedThoughts[] } = await makeRequest("/bookmark");
-    const bookmarkTweet = data.find((thought) => thought.tweetId._id === id);
-    setBookmark(bookmarkTweet ? true : false);
-  };
-
-  useEffect(() => {
     getBookmarks();
-  }, []);
+  };
 
   return (
     <div>
@@ -90,7 +82,7 @@ export default function ThoughtContainer({
         </p>
         <button onClick={likeThought}>❤️</button>
         <button onClick={reThought}>📤</button>
-        <button onClick={addBookmark}>{bookmark ? "📑" : "📖"}</button>
+        <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper thought={child} key={child._id} />

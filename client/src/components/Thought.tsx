@@ -1,6 +1,8 @@
 import React from "react";
 import ThoughtContainer from "../components/ThoughtContainer";
+import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
+import { getIsBookmarked } from "../utils/getIsBookmarked";
 
 interface IThoughtList {
   thought: IThought;
@@ -9,6 +11,8 @@ interface IThoughtList {
 }
 
 export default function Thought({ thought, getThought, parent }: IThoughtList) {
+  const { bookmarks } = useBookmarkContext();
+
   return (
     <>
       {thought ? (
@@ -20,18 +24,22 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
             text={thought.text}
             parent={parent}
             getThought={getThought}
+            isBookmark={getIsBookmarked(bookmarks, thought._id)}
           />
-          {thought.childIds?.map((child) => (
-            <div key={child._id}>
-              <ThoughtContainer
-                id={child._id as string}
-                likes={child.likes as number}
-                shares={child.retweets as number}
-                text={child.text as string}
-                parent={false}
-              />
-            </div>
-          ))}
+          {thought.childIds?.map((child) => {
+            return (
+              <div key={child._id}>
+                <ThoughtContainer
+                  id={child._id as string}
+                  likes={child.likes as number}
+                  shares={child.retweets as number}
+                  text={child.text as string}
+                  parent={false}
+                  isBookmark={getIsBookmarked(bookmarks, child._id as string)}
+                />
+              </div>
+            );
+          })}
         </div>
       ) : (
         <div>Loading</div>
