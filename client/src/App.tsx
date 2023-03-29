@@ -25,9 +25,9 @@ function App() {
             />
             <Route path="/thought/:id" Component={SingleThought} />
             <Route path="/login" Component={Login} />
+            <Route path="/signup" Component={SignUp} />
             <Route path="/bookmarks" Component={Bookmarks} />
             <Route path="/rethoughts" Component={ReThoughts} />
-            <Route path="/signup" Component={SignUp} />
           </Routes>
         </div>
       </BookmarkProvider>
