@@ -29,6 +29,9 @@ export default function Navigation({ signIn }: INavigation) {
           <li>
             <Link to="/signup">Signup</Link>
           </li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
         </ul>
         <button>Think</button>
       </nav>

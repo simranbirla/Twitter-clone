@@ -4,21 +4,14 @@ import React, {
   useContext,
   useState,
 } from "react";
+import { IUser } from "../interfaces/User";
 import { makeRequest } from "../utils/makeRequest";
 
 export interface IUserContext {
-  user: IUserValues;
-  setUser: React.Dispatch<React.SetStateAction<IUserValues>>;
+  user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   getUser: () => Promise<void>;
 }
-
-type IUserValues = {
-  photo: string;
-  name: string;
-  username: string;
-  email: string;
-  id: string;
-};
 
 const initialUserValues = {
   photo: "",
@@ -26,6 +19,7 @@ const initialUserValues = {
   username: "",
   email: "",
   id: "",
+  status: "",
 };
 
 const UserStore = createContext({} as IUserContext);
@@ -33,11 +27,19 @@ const UserStore = createContext({} as IUserContext);
 const useUserContext = () => useContext(UserStore);
 
 const UserStoreProvider = ({ children }: { children: ReactElement }) => {
-  const [user, setUser] = useState<IUserValues>(initialUserValues);
+  const [user, setUser] = useState<IUser>(initialUserValues);
 
   const getUserInfo = async () => {
-    const { data } = await makeRequest("/profile");
-    setUser(data);
+    const { data } = await makeRequest("/user/profile");
+    const base64Image = btoa(
+      new Uint8Array(data.photo.data).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+    console.log(base64Image);
+    const dataUrl = `data:image/jpeg;base64,${base64Image}`;
+    setUser({ ...data, photo: dataUrl });
   };
 
   const value = {
