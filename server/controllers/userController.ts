@@ -3,6 +3,7 @@ import User, { IUser } from "../model/userModel";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
+    console.log(req.body.photo);
     req.body.photo = req.file?.buffer;
     const user: IUser = await User.create(req.body);
     const userObj = user.toObject();
@@ -45,6 +46,25 @@ export const getAllUsers = async (req: Request, res: Response) => {
     const users = await User.find();
 
     res.json({ status: 200, message: "Users found", data: users });
+  } catch (err) {
+    res.json({ status: 500, message: "Something went wrong", err });
+  }
+};
+
+export const getUserByUsername = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (user) {
+      res.json({
+        status: 200,
+        doesUserExists: true,
+      });
+    } else {
+      res.json({
+        status: 200,
+        doesUserExists: false,
+      });
+    }
   } catch (err) {
     res.json({ status: 500, message: "Something went wrong", err });
   }
