@@ -9,28 +9,33 @@ import SingleThought from "./pages/SingleThought";
 import AllThoughts from "./pages/AllThoughts";
 import SignUp from "./pages/SignUp";
 import { BookmarkProvider } from "./context/Bookmark";
+import ProfilePage from "./pages/Profile";
+import { UserStoreProvider } from "./context/User";
 
 function App() {
   return (
     <Router>
-      <BookmarkProvider>
-        <div className="App">
-          Hello
-          <Navigation signIn={false} />
-          <Routes>
-            <Route path="/" Component={AllThoughts} />
-            <Route
-              path="/profile/:id"
-              element={<div>Profile should be here</div>}
-            />
-            <Route path="/thought/:id" Component={SingleThought} />
-            <Route path="/login" Component={Login} />
-            <Route path="/signup" Component={SignUp} />
-            <Route path="/bookmarks" Component={Bookmarks} />
-            <Route path="/rethoughts" Component={ReThoughts} />
-          </Routes>
-        </div>
-      </BookmarkProvider>
+      <UserStoreProvider>
+        <BookmarkProvider>
+          <div className="App">
+            Hello
+            <Navigation signIn={false} />
+            <Routes>
+              <Route path="/" Component={AllThoughts} />
+              <Route
+                path="/profile/:id"
+                element={<div>Profile should be here</div>}
+              />
+              <Route path="/thought/:id" Component={SingleThought} />
+              <Route path="/login" Component={Login} />
+              <Route path="/signup" Component={SignUp} />
+              <Route path="/bookmarks" Component={Bookmarks} />
+              <Route path="/rethoughts" Component={ReThoughts} />
+              <Route path="/profile" Component={ProfilePage} />
+            </Routes>
+          </div>
+        </BookmarkProvider>
+      </UserStoreProvider>
     </Router>
   );
 }

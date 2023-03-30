@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/User";
 
 interface FormData {
   username: string;
@@ -23,6 +24,8 @@ const initialFormValues = {
 export default function SignUpForm() {
   const [formData, setFormData] = useState<FormData>(initialFormValues);
   const [image, setImage] = useState<File | null>();
+
+  const { setUser } = useUserContext();
 
   const navigate = useNavigate();
 
@@ -50,12 +53,15 @@ export default function SignUpForm() {
     formFieldData.append("photo", image as Blob);
 
     try {
-      const data = await makeRequest("/auth/signup", {
+      const response = await makeRequest("/auth/signup", {
         method: "POST",
         data: formFieldData,
       });
 
-      if (data.status === 201) navigate("/");
+      if (response.status === 200) {
+        setUser(response.data);
+        navigate("/");
+      }
     } catch (e) {
       setFormData(initialFormValues);
       setImage(undefined);
