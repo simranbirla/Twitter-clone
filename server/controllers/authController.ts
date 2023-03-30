@@ -22,7 +22,7 @@ passport.use(
         const photoBase64 = req.file?.buffer.toString("base64");
         userObj.photo = photoBase64;
 
-        return done(null, user);
+        return done(null, userObj);
       } catch (error) {
         done(error);
       }
