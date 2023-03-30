@@ -27,9 +27,9 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
+const getUserInfo = async (id: string, res: Response) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(id);
 
     if (!user) {
       return res.json({ status: 404, message: "User not found" });
@@ -39,6 +39,10 @@ export const getUser = async (req: Request, res: Response) => {
   } catch (err) {
     return res.json({ status: 500, message: "Something went wrong", err });
   }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  return getUserInfo(req.params.id, res);
 };
 
 export const getAllUsers = async (req: Request, res: Response) => {
@@ -68,4 +72,9 @@ export const getUserByUsername = async (req: Request, res: Response) => {
   } catch (err) {
     res.json({ status: 500, message: "Something went wrong", err });
   }
+};
+
+export const getProfile = async (req: Request, res: Response) => {
+  const user = req.user as IUser;
+  return getUserInfo(user.id, res);
 };
