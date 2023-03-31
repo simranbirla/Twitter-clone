@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../context/User";
 
-interface INavigation {
-  signIn: boolean;
-}
+export default function Navigation() {
+  const { user } = useUserContext();
 
-export default function Navigation({ signIn }: INavigation) {
   return (
     <div className="navigation">
       <nav>
@@ -14,7 +13,7 @@ export default function Navigation({ signIn }: INavigation) {
             <Link to="/">Home</Link>
           </li>
           <li>
-            {signIn ? (
+            {user.id ? (
               <Link to={`/profile/`}>Profile</Link>
             ) : (
               <Link to={`/login`}>Login</Link>
@@ -28,9 +27,6 @@ export default function Navigation({ signIn }: INavigation) {
           </li>
           <li>
             <Link to="/signup">Signup</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
           </li>
         </ul>
         <button>Think</button>

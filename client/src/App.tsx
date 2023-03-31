@@ -9,7 +9,7 @@ import SingleThought from "./pages/SingleThought";
 import AllThoughts from "./pages/AllThoughts";
 import SignUp from "./pages/SignUp";
 import { BookmarkProvider } from "./context/Bookmark";
-import ProfilePage from "./pages/Profile";
+import ProfilePage from "./pages/ProfilePage";
 import { UserStoreProvider } from "./context/User";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <BookmarkProvider>
           <div className="App">
             Hello
-            <Navigation signIn={false} />
+            <Navigation />
             <Routes>
               <Route path="/" Component={AllThoughts} />
               <Route

@@ -5,6 +5,7 @@ import React, {
   useState,
 } from "react";
 import { IUser } from "../interfaces/User";
+import { getBase64String } from "../utils/getBase64String";
 import { makeRequest } from "../utils/makeRequest";
 
 export interface IUserContext {
@@ -31,15 +32,9 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
 
   const getUserInfo = async () => {
     const { data } = await makeRequest("/user/profile");
-    const base64Image = btoa(
-      new Uint8Array(data.photo.data).reduce(
-        (data, byte) => data + String.fromCharCode(byte),
-        ""
-      )
-    );
-    console.log(base64Image);
-    const dataUrl = `data:image/jpeg;base64,${base64Image}`;
-    setUser({ ...data, photo: dataUrl });
+    const dataUrl = getBase64String(data.photo.data);
+
+    setUser({ ...data, photo: dataUrl, id: data._id });
   };
 
   const value = {
