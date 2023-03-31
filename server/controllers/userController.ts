@@ -35,11 +35,7 @@ const getUserInfo = async (id: string, res: Response) => {
       return res.json({ status: 404, message: "User not found" });
     }
 
-    const userObj = user.toObject();
-    const photoBase64 = user.photo.toString("base64");
-    userObj.photo = photoBase64;
-
-    return res.json({ status: 200, message: "User found", data: userObj });
+    return res.json({ status: 200, message: "User found", data: user });
   } catch (err) {
     return res.json({ status: 500, message: "Something went wrong", err });
   }

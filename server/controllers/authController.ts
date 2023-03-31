@@ -18,11 +18,8 @@ passport.use(
       try {
         req.body.photo = req.file?.buffer;
         const user: IUser = await User.create(req.body);
-        const userObj = user.toObject();
-        const photoBase64 = req.file?.buffer.toString("base64");
-        userObj.photo = photoBase64;
 
-        return done(null, userObj);
+        return done(null, user);
       } catch (error) {
         done(error);
       }

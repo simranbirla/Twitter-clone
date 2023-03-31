@@ -5,6 +5,7 @@ import { IUser } from "../model/userModel";
 export const createTweet = async (req: Request, res: Response) => {
   try {
     const user = req.user as IUser;
+    console.log(req.body);
 
     const tweet = await Tweet.create({ ...req.body, userId: user.id });
 
@@ -104,6 +105,17 @@ export const editTweet = async (req: Request, res: Response) => {
 export const getTweets = async (req: Request, res: Response) => {
   try {
     const tweets = await Tweet.find();
+
+    return res.json({ status: 200, data: tweets, message: "Tweets received" });
+  } catch (err) {
+    return res.json({ status: 500, message: "Something went wrong" });
+  }
+};
+
+export const getOwnTweets = async (req: Request, res: Response) => {
+  try {
+    const user = req.user as IUser;
+    const tweets = await Tweet.find({ userId: user.id });
 
     return res.json({ status: 200, data: tweets, message: "Tweets received" });
   } catch (err) {
