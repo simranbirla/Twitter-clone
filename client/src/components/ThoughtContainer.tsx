@@ -4,6 +4,7 @@ import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
+import LikeModal from "./LikeModal";
 
 export interface IThoughtContainer {
   id: string;
@@ -13,6 +14,7 @@ export interface IThoughtContainer {
   parent: boolean;
   isBookmark: boolean;
   getThought?: () => void;
+  children?: React.ReactElement;
 }
 
 export default function ThoughtContainer({
@@ -23,6 +25,7 @@ export default function ThoughtContainer({
   parent,
   isBookmark = false,
   getThought,
+  children,
 }: IThoughtContainer) {
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
@@ -77,12 +80,12 @@ export default function ThoughtContainer({
             {showChild ? "Hide replies" : "Show replies"}
           </button>
         )}
-        <p>
-          Likes: {likes ?? 0} reThought: {shares ?? 0}
-        </p>
+        <p>Likes: {likes ?? 0}</p>
+        <p>reThought: {shares ?? 0}</p>
         <button onClick={likeThought}>❤️</button>
         <button onClick={reThought}>📤</button>
         <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
+        {children}
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper thought={child} key={child._id} />
