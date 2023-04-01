@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Tweet from "../model/tweetModel";
+import Likes from "../model/likesModel";
 import { IUser } from "../model/userModel";
 
 export const createTweet = async (req: Request, res: Response) => {
@@ -119,6 +120,21 @@ export const getOwnTweets = async (req: Request, res: Response) => {
 
     return res.json({ status: 200, data: tweets, message: "Tweets received" });
   } catch (err) {
+    return res.json({ status: 500, message: "Something went wrong" });
+  }
+};
+
+export const getLikedUsersOfTweet = async (req: Request, res: Response) => {
+  try {
+    const userLikes = await Likes.find({ tweetId: req.params.id }).populate(
+      "userId",
+      "-password"
+    );
+
+    const users = userLikes.map((userlike) => userlike.userId);
+
+    return res.json({ status: 200, data: users });
+  } catch (e) {
     return res.json({ status: 500, message: "Something went wrong" });
   }
 };

@@ -5,6 +5,7 @@ import {
   createTweet,
   deleteTweet,
   editTweet,
+  getLikedUsersOfTweet,
   getOwnTweets,
   getTweet,
   getTweets,
@@ -18,5 +19,5 @@ router.use("*", jwtAuth);
 router.get("/user", getOwnTweets);
 
 router.route("/:id").get(getTweet).patch(editTweet).delete(deleteTweet);
-
+router.get("/:id/likes", getLikedUsersOfTweet);
 export default router;
