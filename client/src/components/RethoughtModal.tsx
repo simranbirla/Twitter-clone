@@ -5,14 +5,14 @@ import { IUser } from "../interfaces/User";
 import { getBase64String } from "../utils/getBase64String";
 import ModalCard from "./Modal";
 
-export default function LikeModal() {
+export default function RethoughtModal() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const { id } = useParams();
 
   const openModal = async () => {
-    const { data } = await makeRequest(`/tweet/${id}/likes`);
+    const { data } = await makeRequest(`/tweet/${id}/retweets`);
     const usersData = data.map((user: any) => {
       return { ...user, photo: getBase64String(user.photo.data) };
     });
@@ -30,8 +30,8 @@ export default function LikeModal() {
       <ModalCard
         onOpenModal={openModal}
         onCloseModal={closeModal}
-        label="Liked"
-        heading="Liked BY"
+        heading="Shared By"
+        label="Reshared"
         loading={loading}
         users={users}
       />

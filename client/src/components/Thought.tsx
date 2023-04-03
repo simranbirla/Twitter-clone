@@ -4,6 +4,7 @@ import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
 import { getIsBookmarked } from "../utils/getIsBookmarked";
 import LikeModal from "./LikeModal";
+import RethoughtModal from "./RethoughtModal";
 
 interface IThoughtList {
   thought: IThought;
@@ -28,6 +29,7 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
             isBookmark={getIsBookmarked(bookmarks, thought._id)}
           >
             <LikeModal />
+            <RethoughtModal />
           </ThoughtContainer>
           {thought.childIds?.map((child) => {
             return (

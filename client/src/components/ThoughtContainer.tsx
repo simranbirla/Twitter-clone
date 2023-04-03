@@ -4,7 +4,6 @@ import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
-import LikeModal from "./LikeModal";
 
 export interface IThoughtContainer {
   id: string;
@@ -14,7 +13,7 @@ export interface IThoughtContainer {
   parent: boolean;
   isBookmark: boolean;
   getThought?: () => void;
-  children?: React.ReactElement;
+  children?: React.ReactElement[] | React.ReactElement;
 }
 
 export default function ThoughtContainer({
