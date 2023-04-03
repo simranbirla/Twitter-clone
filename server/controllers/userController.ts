@@ -6,12 +6,8 @@ export const createUser = async (req: Request, res: Response) => {
     console.log(req.body.photo);
     req.body.photo = req.file?.buffer;
     const user: IUser = await User.create(req.body);
-    const userObj = user.toObject();
-    const photoBase64 = req.file?.buffer.toString("base64");
 
-    userObj.photo = photoBase64;
-
-    res.json({ status: 201, message: "User created", data: userObj });
+    res.json({ status: 201, message: "User created", data: user });
   } catch (err) {
     res.json({ status: 500, message: "Something went wrong", err });
   }
