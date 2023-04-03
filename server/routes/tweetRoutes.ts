@@ -1,5 +1,4 @@
 import express from "express";
-import passport from "passport";
 import { jwtAuth } from "../controllers/authController";
 import {
   createTweet,
@@ -7,6 +6,7 @@ import {
   editTweet,
   getLikedUsersOfTweet,
   getOwnTweets,
+  getRetweetedUsersOfTweet,
   getTweet,
   getTweets,
 } from "../controllers/tweetController";
@@ -20,4 +20,6 @@ router.get("/user", getOwnTweets);
 
 router.route("/:id").get(getTweet).patch(editTweet).delete(deleteTweet);
 router.get("/:id/likes", getLikedUsersOfTweet);
+router.get("/:id/retweets", getRetweetedUsersOfTweet);
+
 export default router;
