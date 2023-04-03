@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/User";
+import ThinkModal from "./ThinkModal";
 
 export default function Navigation() {
   const { user } = useUserContext();
@@ -29,7 +30,7 @@ export default function Navigation() {
             <Link to="/signup">Signup</Link>
           </li>
         </ul>
-        <button>Think</button>
+        <ThinkModal />
       </nav>
     </div>
   );

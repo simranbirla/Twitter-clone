@@ -2,15 +2,16 @@ import React, {
   createContext,
   ReactElement,
   useContext,
+  useEffect,
   useState,
 } from "react";
-import { IUser } from "../interfaces/User";
+import { IUserDetails } from "../interfaces/User";
 import { getBase64String } from "../utils/getBase64String";
 import { makeRequest } from "../utils/makeRequest";
 
 export interface IUserContext {
-  user: IUser;
-  setUser: React.Dispatch<React.SetStateAction<IUser>>;
+  user: IUserDetails;
+  setUser: React.Dispatch<React.SetStateAction<IUserDetails>>;
   getUser: () => Promise<void>;
 }
 
@@ -21,6 +22,7 @@ const initialUserValues = {
   email: "",
   id: "",
   status: "",
+  loggedIn: false,
 };
 
 const UserStore = createContext({} as IUserContext);
@@ -28,14 +30,25 @@ const UserStore = createContext({} as IUserContext);
 const useUserContext = () => useContext(UserStore);
 
 const UserStoreProvider = ({ children }: { children: ReactElement }) => {
-  const [user, setUser] = useState<IUser>(initialUserValues);
+  const [user, setUser] = useState<IUserDetails>(initialUserValues);
+  const [error, setError] = useState<string>();
 
   const getUserInfo = async () => {
-    const { data } = await makeRequest("/user/profile");
-    const dataUrl = getBase64String(data.photo.data);
+    try {
+      const { data } = await makeRequest("/user/profile");
+      console.log(data);
+      const dataUrl = getBase64String(data.photo.data);
 
-    setUser({ ...data, photo: dataUrl, id: data._id });
+      setUser({ ...data, photo: dataUrl, id: data._id });
+    } catch (err) {
+      console.log("error", err);
+      setError(err as string);
+    }
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const value = {
     user: user,

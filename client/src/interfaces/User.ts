@@ -6,3 +6,7 @@ export interface IUser {
   id: string;
   status: string;
 }
+
+export interface IUserDetails extends IUser {
+  loggedIn: boolean;
+}
