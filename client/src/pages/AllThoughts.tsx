@@ -1,6 +1,9 @@
 import React from "react";
-import Thoughts from "../components/Thoughts";
+import ThoughtsContainer from "../components/ThoughtsContainer";
+import { useThoughtsContext } from "../context/Thoughts";
 
 export default function AllThoughts() {
-  return <Thoughts type="thoughts" />;
+  const { thoughts, getThoughts } = useThoughtsContext();
+
+  return <ThoughtsContainer getThoughts={getThoughts} thoughts={thoughts} />;
 }
