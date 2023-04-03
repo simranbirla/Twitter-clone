@@ -21,6 +21,7 @@ const ThoughtsProvider = ({ children }: { children: ReactElement }) => {
   const [thoughts, setThoughts] = useState<IThought[]>([]);
 
   const getThoughts = async () => {
+    console.log("This is thoughts context");
     const { data }: { data: IThought[] } = await makeRequest("/tweet");
     setThoughts(data);
   };

@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
 
 export interface IThoughtForm {
-  id: string;
+  id?: string;
   parent: boolean;
   getThought?: () => void;
   getChildThoughts?: () => void;

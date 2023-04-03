@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import ThoughtForm from "./ThoughtForm";
+import { useThoughtsContext } from "../context/Thoughts";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 export default function ThinkModal() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { getThoughts } = useThoughtsContext();
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -19,10 +33,10 @@ export default function ThinkModal() {
         isOpen={isOpen}
         onRequestClose={onCloseModal}
         contentLabel={"Thinkkk"}
+        style={customStyles}
       >
         <div>Hello</div>
-        <input type="text" placeholder="What do you want to talk about" />
-        <button>Tell</button>
+        <ThoughtForm parent={true} getThought={getThoughts} />
       </Modal>
     </div>
   );
