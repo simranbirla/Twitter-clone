@@ -110,7 +110,9 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).json({ error: err.message });
     }
     if (!user) {
-      return res.status(401).json({ error: "User not authorized" });
+      return res
+        .status(401)
+        .json({ error: "User not authorized", data: false });
     }
     req.user = user;
     next();

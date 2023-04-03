@@ -32,12 +32,17 @@ const getUserInfo = async (id: string, res: Response) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.json({ status: 404, message: "User not found" });
+      return res.json({ status: 404, message: "User not found", data: false });
     }
 
     return res.json({ status: 200, message: "User found", data: user });
   } catch (err) {
-    return res.json({ status: 500, message: "Something went wrong", err });
+    return res.json({
+      status: 500,
+      message: "Something went wrong",
+      err,
+      data: false,
+    });
   }
 };
 
