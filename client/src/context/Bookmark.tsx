@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { ISavedThoughts } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
+import { useUserContext } from "./User";
 
 export interface IBookmarkContext {
   bookmarks: ISavedThoughts[];
@@ -19,10 +20,15 @@ const useBookmarkContext = () => useContext(BookmarkStore);
 
 const BookmarkProvider = ({ children }: { children: ReactElement }) => {
   const [bookmarks, setBookmarks] = useState<ISavedThoughts[]>([]);
+  const { user } = useUserContext();
 
   const getBookmarks = async () => {
-    const { data }: { data: ISavedThoughts[] } = await makeRequest("/bookmark");
-    setBookmarks(data);
+    if (user.loggedIn) {
+      const { data }: { data: ISavedThoughts[] } = await makeRequest(
+        "/bookmark"
+      );
+      setBookmarks(data);
+    }
   };
 
   useEffect(() => {

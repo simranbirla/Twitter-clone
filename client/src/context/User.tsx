@@ -11,6 +11,7 @@ import { makeRequest } from "../utils/makeRequest";
 
 export interface IUserContext {
   user: IUserDetails;
+  error: string;
   setUser: React.Dispatch<React.SetStateAction<IUserDetails>>;
   getUser: () => Promise<void>;
 }
@@ -31,19 +32,20 @@ const useUserContext = () => useContext(UserStore);
 
 const UserStoreProvider = ({ children }: { children: ReactElement }) => {
   const [user, setUser] = useState<IUserDetails>(initialUserValues);
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>("");
 
   const getUserInfo = async () => {
-    try {
-      const { data } = await makeRequest("/user/profile");
-      console.log(data);
-      const dataUrl = getBase64String(data.photo.data);
+    const { data } = await makeRequest("/user/profile");
+    console.log(data);
 
-      setUser({ ...data, photo: dataUrl, id: data._id });
-    } catch (err) {
-      console.log("error", err);
-      setError(err as string);
+    if (data.error) {
+      console.log("error", data.error);
+      setError(data.error as string);
+      return;
     }
+
+    const dataUrl = getBase64String(data.photo.data);
+    setUser({ ...data, photo: dataUrl, id: data._id, loggedIn: true });
   };
 
   useEffect(() => {
@@ -51,8 +53,9 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
   }, []);
 
   const value = {
-    user: user,
-    setUser: setUser,
+    error,
+    user,
+    setUser,
     getUser: getUserInfo,
   };
 

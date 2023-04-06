@@ -12,7 +12,8 @@ export const makeRequest = async (
   try {
     const res = await api(url, options);
     return res.data;
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    console.log(error.response);
+    return error.response;
   }
 };
