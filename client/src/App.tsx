@@ -10,6 +10,7 @@ import AllThoughts from "./pages/AllThoughts";
 import SignUp from "./pages/SignUp";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
   const protectedRoutes = [
@@ -38,10 +39,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" Component={AllThoughts} />
-          <Route
-            path="/profile/:id"
-            element={<div>Profile should be here</div>}
-          />
+          <Route path="/profile/:id" element={<UserProfilePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           {protectedRoutes.map((route) => (

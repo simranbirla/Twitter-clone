@@ -1,34 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useUserContext } from "../context/User";
+import UserProfile from "../components/UserProfile";
 
 export default function Profile() {
-  const { getUser, user } = useUserContext();
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  const { user } = useUserContext();
 
   return (
     <div>
       Profile
-      {user.loggedIn ? (
-        <div>
-          <div>
-            <h3>{user.name}</h3>
-            <img
-              src={user.photo}
-              alt={user.username}
-              style={{ width: "250px", height: "300px", objectFit: "cover" }}
-            />
-          </div>
-          <div>
-            <p>{user.email}</p>
-            {user.status && <p>Status: user.status</p>}
-          </div>
-        </div>
-      ) : (
-        <div>Loading</div>
-      )}
+      {user.loggedIn ? <UserProfile {...user} /> : <div>Loading</div>}
     </div>
   );
 }

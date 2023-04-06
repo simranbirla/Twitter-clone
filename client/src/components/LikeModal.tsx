@@ -14,10 +14,9 @@ export default function LikeModal() {
   const openModal = async () => {
     const { data } = await makeRequest(`/tweet/${id}/likes`);
     const usersData = data.map((user: any) => {
-      return { ...user, photo: getBase64String(user.photo.data) };
+      return { ...user, id: user._id, photo: getBase64String(user.photo.data) };
     });
-    console.log(usersData);
-    setUsers(data);
+    setUsers(usersData);
     setLoading(false);
   };
 

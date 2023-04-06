@@ -69,6 +69,7 @@ export default function ModalCard({
                     status={user.status}
                     username={user.username}
                     name={user.name}
+                    id={user.id}
                   />
                 ))}
               </div>

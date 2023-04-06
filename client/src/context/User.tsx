@@ -35,6 +35,7 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
   const [error, setError] = useState<string>("");
 
   const getUserInfo = async () => {
+    console.log("just to check how many it is visited");
     const { data } = await makeRequest("/user/profile");
     console.log(data);
 
