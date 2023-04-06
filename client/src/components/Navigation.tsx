@@ -14,7 +14,7 @@ export default function Navigation() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            {user.id ? (
+            {user.loggedIn ? (
               <Link to={`/profile/`}>Profile</Link>
             ) : (
               <Link to={`/login`}>Login</Link>
@@ -25,9 +25,6 @@ export default function Navigation() {
           </li>
           <li>
             <Link to="/rethoughts">ReThoughts</Link>
-          </li>
-          <li>
-            <Link to="/signup">Signup</Link>
           </li>
         </ul>
         <ThinkModal />

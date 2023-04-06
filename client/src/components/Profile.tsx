@@ -11,7 +11,7 @@ export default function Profile() {
   return (
     <div>
       Profile
-      {user ? (
+      {user.loggedIn ? (
         <div>
           <div>
             <h3>{user.name}</h3>
