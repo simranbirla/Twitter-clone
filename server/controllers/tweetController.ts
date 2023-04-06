@@ -114,15 +114,23 @@ export const getTweets = async (req: Request, res: Response) => {
   }
 };
 
-export const getOwnTweets = async (req: Request, res: Response) => {
+const getTweetsByUserId = async (userId: string, res: Response) => {
   try {
-    const user = req.user as IUser;
-    const tweets = await Tweet.find({ userId: user.id });
+    const tweets = await Tweet.find({ userId });
 
     return res.json({ status: 200, data: tweets, message: "Tweets received" });
   } catch (err) {
     return res.json({ status: 500, message: "Something went wrong" });
   }
+};
+
+export const getUserTweets = async (req: Request, res: Response) => {
+  await getTweetsByUserId(req.params.id, res);
+};
+
+export const getOwnTweets = async (req: Request, res: Response) => {
+  const user = req.user as IUser;
+  await getTweetsByUserId(user.id, res);
 };
 
 export const getLikedUsersOfTweet = async (req: Request, res: Response) => {
