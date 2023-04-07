@@ -2,9 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/User";
 import ThinkModal from "./ThinkModal";
+import { makeRequest } from "../utils/makeRequest";
 
 export default function Navigation() {
-  const { user } = useUserContext();
+  const { user, getUser } = useUserContext();
+
+  const logOut = async () => {
+    await makeRequest("/auth/logout", { method: "POST" });
+    await getUser();
+  };
 
   return (
     <div className="navigation">
@@ -28,6 +34,7 @@ export default function Navigation() {
           </li>
         </ul>
         <ThinkModal />
+        <button onClick={logOut}>Logout</button>
       </nav>
     </div>
   );

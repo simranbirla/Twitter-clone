@@ -26,6 +26,11 @@ export default function ThinkModal() {
     setIsOpen(true);
   };
 
+  const getThought = async () => {
+    await getThoughts();
+    onCloseModal();
+  };
+
   return (
     <div>
       <button onClick={openModal}>Thinkkk</button>
@@ -36,7 +41,7 @@ export default function ThinkModal() {
         style={customStyles}
       >
         <div>Hello</div>
-        <ThoughtForm parent={true} getThought={getThoughts} />
+        <ThoughtForm parent={true} getThought={getThought} />
       </Modal>
     </div>
   );

@@ -30,7 +30,7 @@ export default function ThoughtForm({
       return;
     }
 
-    const { data } = await makeRequest("/tweet", {
+    await makeRequest("/tweet", {
       method: "POST",
       data: {
         parentId: id,
@@ -43,7 +43,6 @@ export default function ThoughtForm({
     } else {
       getChildThoughts && getChildThoughts();
     }
-    console.log(data);
   };
 
   return (
