@@ -13,6 +13,11 @@ export interface IThoughtContainer {
   likes: number;
   shares: number;
   parent: boolean;
+  photo: string;
+  userId: {
+    name: string;
+    _id: string;
+  };
   isBookmark: boolean;
   getThought?: () => void;
   children?: React.ReactElement[] | React.ReactElement;
@@ -27,6 +32,8 @@ export default function ThoughtContainer({
   isBookmark = false,
   getThought,
   children,
+  photo,
+  userId,
 }: IThoughtContainer) {
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
@@ -80,6 +87,14 @@ export default function ThoughtContainer({
     <div>
       <div className="thought">
         {text}
+        <div>
+          Username: {userId.name}
+          <img
+            src={photo}
+            alt={userId.name}
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+          />
+        </div>
         <ThoughtForm
           parent={parent}
           id={id}

@@ -4,6 +4,7 @@ import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
 import { Link } from "react-router-dom";
 import ThoughtContainer from "./ThoughtContainer";
+import { getBase64String } from "../utils/getBase64String";
 
 export interface IThoughtsContainer {
   thoughts: IThought[];
@@ -16,6 +17,7 @@ export default function ThoughtsContainer({
 }: IThoughtsContainer) {
   const { bookmarks } = useBookmarkContext();
 
+  console.log(thoughts);
   return (
     <div>
       Thoughts
@@ -25,12 +27,12 @@ export default function ThoughtsContainer({
             <Link to={`/thought/${thought._id}`}>Click</Link>
             <ThoughtContainer
               id={thought._id}
-              likes={thought.likes}
               shares={thought.retweets}
-              text={thought.text}
               parent={true}
               isBookmark={getIsBookmarked(bookmarks, thought._id)}
               getThought={getThoughts}
+              photo={getBase64String(thought.userId.photo.data)}
+              {...thought}
             />
           </div>
         ))

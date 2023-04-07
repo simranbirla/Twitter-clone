@@ -5,6 +5,7 @@ import { IThought } from "../interfaces/Thought";
 import { getIsBookmarked } from "../utils/getIsBookmarked";
 import LikeModal from "./LikeModal";
 import RethoughtModal from "./RethoughtModal";
+import { getBase64String } from "../utils/getBase64String";
 
 interface IThoughtList {
   thought: IThought;
@@ -21,12 +22,12 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
         <div>
           <ThoughtContainer
             id={thought._id}
-            likes={thought.likes}
             shares={thought.retweets}
-            text={thought.text}
             parent={parent}
             getThought={getThought}
             isBookmark={getIsBookmarked(bookmarks, thought._id)}
+            photo={getBase64String(thought.userId.photo.data)}
+            {...thought}
           >
             <LikeModal />
             <RethoughtModal />
@@ -36,11 +37,11 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
               <div key={child._id}>
                 <ThoughtContainer
                   id={child._id as string}
-                  likes={child.likes as number}
                   shares={child.retweets as number}
-                  text={child.text as string}
                   parent={false}
                   isBookmark={getIsBookmarked(bookmarks, child._id as string)}
+                  photo={getBase64String(child.userId?.photo.data as number[])}
+                  {...thought}
                 />
               </div>
             );

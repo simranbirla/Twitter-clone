@@ -1,6 +1,12 @@
 export interface IThought {
   text: string;
-  userId: string;
+  userId: {
+    name: string;
+    photo: {
+      data: number[];
+    };
+    _id: string;
+  };
   likes: number;
   retweets: number;
   parentId?: string;
