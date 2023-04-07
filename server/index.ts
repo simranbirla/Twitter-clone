@@ -47,7 +47,7 @@ app.use("/bookmark", bookmarkRoutes);
 app.use("/retweet", retweetRoutes);
 
 app.all("*", (err: any, req: Request, res: Response) => {
-  return res.json({ message: `Cannot find ${req.url} url ` });
+  return res.json({ message: `Cannot find ${req.url} url `, status: 404 });
 });
 
 app.listen(process.env.PORT, async () => {

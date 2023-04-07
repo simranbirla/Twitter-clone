@@ -8,6 +8,7 @@ import {
   sendToken,
   passportAuth,
   jwtAuth,
+  logOut,
 } from "../controllers/authController";
 
 const router = express.Router();
@@ -31,5 +32,7 @@ router.get("/example", jwtAuth, (req: Request, res: Response) => {
   const user = req.user as IUser;
   return res.send({ id: user.id });
 });
+
+router.post("/logout", jwtAuth, logOut);
 
 export default router;

@@ -157,3 +157,8 @@ export const sendToken = (req: Request, res: Response) => {
     return res.send({ status: 500, message: "Cannot sign in " });
   }
 };
+
+export const logOut = (req: Request, res: Response) => {
+  res.clearCookie("jwt");
+  return res.json({ status: 202, message: "Logged Out" });
+};
