@@ -1,20 +1,22 @@
 import React, { FormEventHandler, useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
+import { useUserContext } from "../context/User";
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const { getUser } = useUserContext();
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    const data = await makeRequest("/auth/login", {
+    await makeRequest("/auth/login", {
       method: "POST",
       data: {
         email,
         password,
       },
     });
-    console.log(data);
+    await getUser();
   };
 
   return (
