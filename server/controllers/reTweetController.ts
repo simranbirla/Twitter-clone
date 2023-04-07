@@ -52,7 +52,15 @@ export const getReTweets = async (req: Request, res: Response) => {
   const user = req.user as IUser;
 
   const reTweetedTweets = await Retweet.find({ userId: user.id })
-    .populate("tweetId")
+    .populate([
+      {
+        path: "tweetId",
+        populate: {
+          path: "userId",
+          select: "name username _id photo",
+        },
+      },
+    ])
     .exec();
 
   return res.json({ message: "Bookmarked tweets", data: reTweetedTweets });

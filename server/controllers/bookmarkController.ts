@@ -36,7 +36,7 @@ export const getBookmarkTweets = async (req: Request, res: Response) => {
         path: "tweetId",
         populate: {
           path: "userId",
-          select: "name username",
+          select: "name username _id photo",
         },
       },
     ])

@@ -32,7 +32,7 @@ export const getTweet = async (req: Request, res: Response) => {
     const tweet = await Tweet.findById(req.params.id).populate([
       {
         path: "userId",
-        select: "name username -_id",
+        select: "name username photo _id",
       },
       {
         path: "childIds",
@@ -106,7 +106,12 @@ export const editTweet = async (req: Request, res: Response) => {
 
 export const getTweets = async (req: Request, res: Response) => {
   try {
-    const tweets = await Tweet.find();
+    const tweets = await Tweet.find().populate([
+      {
+        path: "userId",
+        select: "name username photo _id",
+      },
+    ]);
 
     return res.json({ status: 200, data: tweets, message: "Tweets received" });
   } catch (err) {
@@ -116,7 +121,12 @@ export const getTweets = async (req: Request, res: Response) => {
 
 const getTweetsByUserId = async (userId: string, res: Response) => {
   try {
-    const tweets = await Tweet.find({ userId });
+    const tweets = await Tweet.find({ userId }).populate([
+      {
+        path: "userId",
+        select: "name username photo _id",
+      },
+    ]);
 
     return res.json({ status: 200, data: tweets, message: "Tweets received" });
   } catch (err) {
