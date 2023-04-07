@@ -20,10 +20,10 @@ const useBookmarkContext = () => useContext(BookmarkStore);
 
 const BookmarkProvider = ({ children }: { children: ReactElement }) => {
   const [bookmarks, setBookmarks] = useState<ISavedThoughts[]>([]);
-  const { user } = useUserContext();
+  const { user, loading } = useUserContext();
 
   const getBookmarks = async () => {
-    if (user.loggedIn) {
+    if (user.loggedIn && !loading) {
       const { data }: { data: ISavedThoughts[] } = await makeRequest(
         "/bookmark"
       );

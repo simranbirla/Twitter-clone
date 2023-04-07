@@ -13,7 +13,10 @@ export default function PrivateRoute({
 }: IPrivateRoute) {
   const {
     user: { loggedIn },
+    loading,
   } = useUserContext();
+
+  if (loading) return <h2>Loading</h2>;
 
   if (!loggedIn) return <Navigate to={redirectLink} />;
 

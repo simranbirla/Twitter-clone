@@ -10,6 +10,7 @@ import { getBase64String } from "../utils/getBase64String";
 import { makeRequest } from "../utils/makeRequest";
 
 export interface IUserContext {
+  loading: boolean;
   user: IUserDetails;
   error: string;
   setUser: React.Dispatch<React.SetStateAction<IUserDetails>>;
@@ -33,9 +34,10 @@ const useUserContext = () => useContext(UserStore);
 const UserStoreProvider = ({ children }: { children: ReactElement }) => {
   const [user, setUser] = useState<IUserDetails>(initialUserValues);
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getUserInfo = async () => {
-    console.log("just to check how many it is visited");
+    setLoading(true);
     const { data } = await makeRequest("/user/profile");
     console.log(data);
 
@@ -47,6 +49,7 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
 
     const dataUrl = getBase64String(data.photo.data);
     setUser({ ...data, photo: dataUrl, id: data._id, loggedIn: true });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -54,6 +57,7 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
   }, []);
 
   const value = {
+    loading,
     error,
     user,
     setUser,
