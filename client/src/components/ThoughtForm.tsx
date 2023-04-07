@@ -1,5 +1,7 @@
 import React, { MouseEventHandler, useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
+import { useNavigate } from "react-router";
+import { useUserContext } from "../context/User";
 
 export interface IThoughtForm {
   id?: string;
@@ -15,9 +17,19 @@ export default function ThoughtForm({
   getChildThoughts,
 }: IThoughtForm) {
   const [thought, setThought] = useState<string>();
+  const {
+    user: { loggedIn },
+  } = useUserContext();
+  const navigate = useNavigate();
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
+
+    if (!loggedIn) {
+      navigate("/login");
+      return;
+    }
+
     const { data } = await makeRequest("/tweet", {
       method: "POST",
       data: {
@@ -41,7 +53,9 @@ export default function ThoughtForm({
         onChange={(e) => setThought(e.target.value)}
         value={thought}
       />
-      <button onClick={handleClick}>Tell</button>
+      <button onClick={handleClick} disabled={!thought}>
+        Tell
+      </button>
     </form>
   );
 }

@@ -4,6 +4,8 @@ import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
+import { useUserContext } from "../context/User";
+import { useNavigate } from "react-router-dom";
 
 export interface IThoughtContainer {
   id: string;
@@ -29,6 +31,10 @@ export default function ThoughtContainer({
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
   const { getBookmarks } = useBookmarkContext();
+  const {
+    user: { loggedIn },
+  } = useUserContext();
+  const navigate = useNavigate();
 
   const getChildThoughts = async () => {
     if (showChild) {
@@ -41,27 +47,33 @@ export default function ThoughtContainer({
   };
 
   const likeThought = async () => {
-    const { data } = await makeRequest(`/like/${id}`, {
-      method: "POST",
-    });
-    getThought && getThought();
-    console.log(data);
+    await handleActions("like");
   };
 
   const reThought = async () => {
-    const { data } = await makeRequest(`/retweet/${id}`, {
-      method: "POST",
-    });
-    getThought && getThought();
-
-    console.log(data);
+    await handleActions("retweet");
   };
 
   const addBookmark = async () => {
-    await makeRequest(`/bookmark/${id}`, {
+    await handleActions("bookmark");
+  };
+
+  const handleActions = async (type: string) => {
+    if (!loggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    await makeRequest(`/${type}/${id}`, {
       method: "POST",
     });
-    getBookmarks();
+
+    if (type === "bookmark") {
+      getBookmarks();
+      return;
+    }
+
+    getThought && getThought();
   };
 
   return (

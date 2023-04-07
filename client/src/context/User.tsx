@@ -44,6 +44,7 @@ const UserStoreProvider = ({ children }: { children: ReactElement }) => {
     if (data.error) {
       console.log("error", data.error);
       setError(data.error as string);
+      setLoading(false);
       return;
     }
 
