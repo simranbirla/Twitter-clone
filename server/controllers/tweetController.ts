@@ -39,7 +39,7 @@ export const getTweet = async (req: Request, res: Response) => {
         select: "text userId",
         populate: {
           path: "userId",
-          select: "name username",
+          select: "name username photo _id",
         },
       },
     ]);
