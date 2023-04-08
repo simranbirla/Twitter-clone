@@ -8,9 +8,13 @@ import { PageType } from "../enum/PageType";
 
 interface IThoughtWrapper {
   thought: IThought;
+  getThought: () => void;
 }
 
-export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
+export default function ThoughtWrapper({
+  thought,
+  getThought,
+}: IThoughtWrapper) {
   const { bookmarks } = useBookmarkContext();
 
   return (
@@ -21,6 +25,7 @@ export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
         type={PageType.CHILD}
         isBookmark={getIsBookmarked(bookmarks, thought._id)}
         photo={getBase64String(thought.userId.photo.data)}
+        getThought={getThought}
         {...thought}
       />
     </div>

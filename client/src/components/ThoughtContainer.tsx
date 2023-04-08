@@ -46,12 +46,16 @@ export default function ThoughtContainer({
   const navigate = useNavigate();
 
   const getChildThoughts = async () => {
+    const { data } = await makeRequest(`/tweet/${id}`);
+    setChildThoughts(data.childIds);
+    setShowChild(true);
+  };
+
+  const handleClick = async () => {
     if (showChild) {
       setShowChild(false);
     } else {
-      const { data } = await makeRequest(`/tweet/${id}`);
-      setChildThoughts(data.childIds);
-      setShowChild(true);
+      await getChildThoughts();
     }
   };
 
@@ -115,7 +119,7 @@ export default function ThoughtContainer({
           getChildThoughts={getChildThoughts}
         />
         {type === PageType.CHILD && (
-          <button onClick={getChildThoughts}>
+          <button onClick={handleClick}>
             {showChild ? "Hide replies" : "Show replies"}
           </button>
         )}
@@ -128,7 +132,11 @@ export default function ThoughtContainer({
         {renderOptions()}
         {showChild &&
           childThoughts.map((child) => (
-            <ThoughtWrapper thought={child} key={child._id} />
+            <ThoughtWrapper
+              thought={child}
+              key={child._id}
+              getThought={getChildThoughts}
+            />
           ))}
       </div>
     </div>
