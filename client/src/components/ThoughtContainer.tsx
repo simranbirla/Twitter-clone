@@ -7,6 +7,7 @@ import ThoughtWrapper from "./ThoughtWrapper";
 import { useUserContext } from "../context/User";
 import { Link, useNavigate } from "react-router-dom";
 import { PageType } from "../enum/PageType";
+import DeleteButton from "./DeleteButton";
 
 export interface IThoughtContainer {
   id: string;
@@ -20,7 +21,7 @@ export interface IThoughtContainer {
     _id: string;
   };
   isBookmark: boolean;
-  getThought?: () => void;
+  getThought: () => void;
   children?: React.ReactElement[] | React.ReactElement;
 }
 
@@ -88,7 +89,7 @@ export default function ThoughtContainer({
     if (userId._id === userInfoId) {
       return (
         <div>
-          <button>Delete</button>
+          <DeleteButton id={id} getThought={getThought} />
           <button>Edit</button>
         </div>
       );

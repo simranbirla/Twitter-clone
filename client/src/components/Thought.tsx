@@ -42,6 +42,7 @@ export default function Thought({ thought, getThought, type }: IThoughtList) {
                   type={PageType.CHILD}
                   isBookmark={getIsBookmarked(bookmarks, child._id as string)}
                   photo={getBase64String(child.userId?.photo.data as number[])}
+                  getThought={getThought}
                   {...(child as IThought)}
                 />
               </div>
