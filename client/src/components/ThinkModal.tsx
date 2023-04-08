@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import ThoughtForm from "./ThoughtForm";
 import { useThoughtsContext } from "../context/Thoughts";
+import { PageType } from "../enum/PageType";
+import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -17,6 +19,7 @@ const customStyles = {
 export default function ThinkModal() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { getThoughts } = useThoughtsContext();
+  const navigate = useNavigate();
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -29,6 +32,7 @@ export default function ThinkModal() {
   const getThought = async () => {
     await getThoughts();
     onCloseModal();
+    navigate("/");
   };
 
   return (
@@ -41,7 +45,7 @@ export default function ThinkModal() {
         style={customStyles}
       >
         <div>Hello</div>
-        <ThoughtForm parent={true} getThought={getThought} />
+        <ThoughtForm type={PageType.MODAL} getThought={getThought} />
       </Modal>
     </div>
   );

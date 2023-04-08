@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import Thought from "../components/Thought";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
+import { PageType } from "../enum/PageType";
 
 export default function SingleThought() {
   const [thought, setThought] = useState<IThought>();
@@ -10,7 +11,6 @@ export default function SingleThought() {
 
   const getThought = async () => {
     const { data } = await makeRequest(`/tweet/${id}`);
-    console.log(data);
     setThought(data);
   };
 
@@ -21,7 +21,11 @@ export default function SingleThought() {
   return (
     <>
       {thought ? (
-        <Thought thought={thought} getThought={getThought} parent={true} />
+        <Thought
+          thought={thought}
+          getThought={getThought}
+          type={PageType.SINGLE_THOUGHT}
+        />
       ) : (
         <div>Loading</div>
       )}

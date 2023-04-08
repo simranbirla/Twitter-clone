@@ -2,17 +2,18 @@ import React, { MouseEventHandler, useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
 import { useNavigate } from "react-router";
 import { useUserContext } from "../context/User";
+import { PageType } from "../enum/PageType";
 
 export interface IThoughtForm {
   id?: string;
-  parent: boolean;
+  type: PageType;
   getThought?: () => void;
   getChildThoughts?: () => void;
 }
 
 export default function ThoughtForm({
   id,
-  parent,
+  type,
   getThought,
   getChildThoughts,
 }: IThoughtForm) {
@@ -38,9 +39,12 @@ export default function ThoughtForm({
       },
     });
     setThought("");
-    if (parent) {
+
+    if (type === PageType.SINGLE_THOUGHT || type === PageType.MODAL) {
       getThought && getThought();
-    } else {
+    }
+
+    if (type === PageType.THOUGHTS || type === PageType.CHILD) {
       getChildThoughts && getChildThoughts();
     }
   };

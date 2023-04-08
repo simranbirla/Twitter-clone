@@ -5,14 +5,15 @@ import { makeRequest } from "../utils/makeRequest";
 import ThoughtForm from "./ThoughtForm";
 import ThoughtWrapper from "./ThoughtWrapper";
 import { useUserContext } from "../context/User";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { PageType } from "../enum/PageType";
 
 export interface IThoughtContainer {
   id: string;
   text: string;
   likes: number;
   shares: number;
-  parent: boolean;
+  type: PageType;
   photo: string;
   userId: {
     name: string;
@@ -28,7 +29,7 @@ export default function ThoughtContainer({
   text,
   likes,
   shares,
-  parent,
+  type,
   isBookmark = false,
   getThought,
   children,
@@ -39,7 +40,7 @@ export default function ThoughtContainer({
   const [showChild, setShowChild] = useState<boolean>(false);
   const { getBookmarks } = useBookmarkContext();
   const {
-    user: { loggedIn },
+    user: { loggedIn, id: userInfoId },
   } = useUserContext();
   const navigate = useNavigate();
 
@@ -83,12 +84,23 @@ export default function ThoughtContainer({
     getThought && getThought();
   };
 
+  const renderOptions = () => {
+    if (userId._id === userInfoId) {
+      return (
+        <div>
+          <button>Delete</button>
+          <button>Edit</button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <div className="thought">
         {text}
         <div>
-          Username: {userId.name}
+          <Link to={`/profile/${userId._id}`}> Username: {userId.name}</Link>
           <img
             src={photo}
             alt={userId.name}
@@ -96,12 +108,12 @@ export default function ThoughtContainer({
           />
         </div>
         <ThoughtForm
-          parent={parent}
+          type={type}
           id={id}
           getThought={getThought}
           getChildThoughts={getChildThoughts}
         />
-        {!parent && (
+        {type === PageType.CHILD && (
           <button onClick={getChildThoughts}>
             {showChild ? "Hide replies" : "Show replies"}
           </button>
@@ -112,6 +124,7 @@ export default function ThoughtContainer({
         <button onClick={reThought}>📤</button>
         <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
         {children}
+        {renderOptions()}
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper thought={child} key={child._id} />

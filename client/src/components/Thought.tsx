@@ -6,14 +6,15 @@ import { getIsBookmarked } from "../utils/getIsBookmarked";
 import LikeModal from "./LikeModal";
 import RethoughtModal from "./RethoughtModal";
 import { getBase64String } from "../utils/getBase64String";
+import { PageType } from "../enum/PageType";
 
 interface IThoughtList {
   thought: IThought;
-  parent: boolean;
+  type: PageType;
   getThought: () => void;
 }
 
-export default function Thought({ thought, getThought, parent }: IThoughtList) {
+export default function Thought({ thought, getThought, type }: IThoughtList) {
   const { bookmarks } = useBookmarkContext();
 
   return (
@@ -23,7 +24,7 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
           <ThoughtContainer
             id={thought._id}
             shares={thought.retweets}
-            parent={parent}
+            type={type}
             getThought={getThought}
             isBookmark={getIsBookmarked(bookmarks, thought._id)}
             photo={getBase64String(thought.userId.photo.data)}
@@ -38,10 +39,10 @@ export default function Thought({ thought, getThought, parent }: IThoughtList) {
                 <ThoughtContainer
                   id={child._id as string}
                   shares={child.retweets as number}
-                  parent={false}
+                  type={PageType.CHILD}
                   isBookmark={getIsBookmarked(bookmarks, child._id as string)}
                   photo={getBase64String(child.userId?.photo.data as number[])}
-                  {...thought}
+                  {...(child as IThought)}
                 />
               </div>
             );

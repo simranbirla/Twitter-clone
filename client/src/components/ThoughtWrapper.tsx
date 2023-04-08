@@ -4,6 +4,7 @@ import { IThought } from "../interfaces/Thought";
 import { getIsBookmarked } from "../utils/getIsBookmarked";
 import ThoughtContainer from "./ThoughtContainer";
 import { getBase64String } from "../utils/getBase64String";
+import { PageType } from "../enum/PageType";
 
 interface IThoughtWrapper {
   thought: IThought;
@@ -17,7 +18,7 @@ export default function ThoughtWrapper({ thought }: IThoughtWrapper) {
       <ThoughtContainer
         id={thought._id}
         shares={thought.retweets}
-        parent={true}
+        type={PageType.CHILD}
         isBookmark={getIsBookmarked(bookmarks, thought._id)}
         photo={getBase64String(thought.userId.photo.data)}
         {...thought}
