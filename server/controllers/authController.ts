@@ -106,7 +106,6 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("jwt", { session: false }, (err: any, user: any) => {
     console.log("heyy", user);
     if (err) {
-      console.log("hello");
       return res.status(401).json({ error: err.message });
     }
     if (!user) {
