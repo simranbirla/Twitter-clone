@@ -1,4 +1,5 @@
 import React from "react";
+import EditModal from "./EditModal";
 
 export interface IUserProfile {
   name: string;
@@ -6,6 +7,7 @@ export interface IUserProfile {
   username: string;
   email: string;
   status: string;
+  edit?: boolean;
 }
 
 export default function UserProfile({
@@ -14,6 +16,7 @@ export default function UserProfile({
   username,
   email,
   status,
+  edit = false,
 }: IUserProfile) {
   return (
     <div>
@@ -27,7 +30,16 @@ export default function UserProfile({
       </div>
       <div>
         <p>{email}</p>
-        {status && <p>Status: status</p>}
+        {status && <p>Status: {status}</p>}
+        {edit && (
+          <EditModal
+            text={status}
+            heading="Edit Status"
+            label="Edit"
+            placeholder="Edit User status"
+            name="status"
+          />
+        )}
       </div>
     </div>
   );

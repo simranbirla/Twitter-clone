@@ -17,7 +17,7 @@ export default function Profile() {
   return (
     <div>
       Profile
-      <UserProfile {...user} />
+      <UserProfile {...user} edit={true} />
     </div>
   );
 }
