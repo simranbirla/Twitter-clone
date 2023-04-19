@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import expressBusboy from "express-busboy";
 import tweetRoutes from "./routes/tweetRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
@@ -16,13 +17,19 @@ import retweetRoutes from "./routes/retweetRoutes";
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+expressBusboy.extend(app, {
+  upload: true,
+});
 app.use(passport.initialize());
+
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 
 const connectDB = async () => {

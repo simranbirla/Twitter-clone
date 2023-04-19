@@ -3,7 +3,6 @@ import User, { IUser } from "../model/userModel";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    console.log(req.body.photo);
     req.body.photo = req.file?.buffer;
     const user: IUser = await User.create(req.body);
 
@@ -78,4 +77,23 @@ export const getUserByUsername = async (req: Request, res: Response) => {
 export const getProfile = async (req: Request, res: Response) => {
   const user = req.user as IUser;
   return getUserInfo(user.id, res);
+};
+
+export const editUser = async (req: Request, res: Response) => {
+  try {
+    const user = req.user as IUser;
+
+    if (req.body.password) {
+      return res.json({ message: "Password cannot be changed", status: 400 });
+    }
+
+    const editedUser = await User.findByIdAndUpdate(user.id, req.body, {
+      new: true,
+    });
+
+    return res.json({ message: "User edited", status: 200, data: editedUser });
+  } catch (e) {
+    console.log(e);
+    return res.json({ message: "Something went wrong", status: 500, error: e });
+  }
 };

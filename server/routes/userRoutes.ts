@@ -4,15 +4,15 @@ import { jwtAuth } from "../controllers/authController";
 import {
   createUser,
   deleteUser,
+  editUser,
   getAllUsers,
   getProfile,
   getUser,
   getUserByUsername,
 } from "../controllers/userController";
+import { upload } from "../utils/multerUpload";
 
 const router = express.Router();
-
-const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/username/:name", getUserByUsername);
 router.get("/profile", jwtAuth, getProfile);
@@ -21,5 +21,6 @@ router.post("/", upload.single("photo"), createUser);
 router.get("/:id", getUser);
 router.get("/", getAllUsers);
 router.delete("/:id", deleteUser);
+router.patch("/", jwtAuth, editUser);
 
 export default router;
