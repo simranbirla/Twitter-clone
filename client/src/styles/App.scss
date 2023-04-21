@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 1024px;
+  border: 2px solid rgba(0, 128, 0, 0.393);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+input {
+  border: 2px solid rgb(156, 156, 156);
+  padding: 10px;
+  margin: 10px;
+}

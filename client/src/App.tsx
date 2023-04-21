@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.scss";
 import Navigation from "./components/Navigation";
 import Bookmarks from "./pages/Bookmarks";
 import Login from "./pages/Login";
@@ -11,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserProfilePage from "./pages/UserProfilePage";
+import "./styles/App.scss";
 
 function App() {
   const protectedRoutes = [

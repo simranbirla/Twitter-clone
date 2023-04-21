@@ -1,3 +1,9 @@
+.thoughts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .thought {
   border: 2px solid rgba(190, 190, 190, 0.608);
 }
