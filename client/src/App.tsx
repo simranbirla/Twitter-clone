@@ -35,21 +35,24 @@ function App() {
   return (
     <Router>
       <div className="App">
-        Hello
-        <Navigation />
-        <Routes>
-          <Route path="/" Component={AllThoughts} />
-          <Route path="/profile/:id" element={<UserProfilePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          {protectedRoutes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={<ProtectedRoute>{route.element}</ProtectedRoute>}
-            />
-          ))}
-        </Routes>
+        <div className="main">
+          <Navigation />
+          <div className="content">
+            <Routes>
+              <Route path="/" Component={AllThoughts} />
+              <Route path="/profile/:id" element={<UserProfilePage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              {protectedRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<ProtectedRoute>{route.element}</ProtectedRoute>}
+                />
+              ))}
+            </Routes>
+          </div>
+        </div>
       </div>
     </Router>
   );

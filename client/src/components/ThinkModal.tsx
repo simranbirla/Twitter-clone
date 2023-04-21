@@ -16,7 +16,9 @@ const customStyles = {
   },
 };
 
-export default function ThinkModal() {
+export default function ThinkModal(
+  props: React.HTMLAttributes<HTMLDivElement>
+) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { getThoughts } = useThoughtsContext();
   const navigate = useNavigate();
@@ -36,8 +38,10 @@ export default function ThinkModal() {
   };
 
   return (
-    <div>
-      <button onClick={openModal}>Thinkkk</button>
+    <div className="modal" {...props}>
+      <button onClick={openModal} className="modal__button">
+        Thinkkk
+      </button>
       <Modal
         isOpen={isOpen}
         onRequestClose={onCloseModal}

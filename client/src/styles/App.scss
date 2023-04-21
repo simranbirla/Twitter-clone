@@ -15,14 +15,22 @@
   color: #61dafb;
 }
 
-.navigation {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+.content {
+  width: 75%;
 }
 
 input {
   border: 2px solid rgb(156, 156, 156);
   padding: 10px;
   margin: 10px;
+}
+
+.main {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 20px;
 }

@@ -1,0 +1,55 @@
+.navigation {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 25%;
+  border-right: 1px solid rgba(128, 128, 128, 0.281);
+  padding: 10px;
+
+  nav {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+
+  &__logout {
+    text-align: left;
+    padding: 0;
+  }
+
+  &__modal {
+    .modal__button {
+      border-radius: 30px;
+      color: white;
+      background-color: #1d91f0;
+      width: 80%;
+    }
+  }
+
+  &__user {
+    display: flex;
+    margin-top: 30px;
+
+    &-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    &__name {
+      &--username {
+        color: rgb(72, 72, 72);
+      }
+    }
+  }
+}
