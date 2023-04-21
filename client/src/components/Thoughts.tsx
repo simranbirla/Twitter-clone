@@ -6,10 +6,13 @@ import ThoughtsContainer from "./ThoughtsContainer";
 
 export default function Thoughts({ type }: { type: string }) {
   const [thoughts, setThoughts] = useState<IThought[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getThoughts = async () => {
+    setLoading(true);
     const data = await getAsyncData(type);
     setThoughts(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -20,5 +23,11 @@ export default function Thoughts({ type }: { type: string }) {
     };
   }, []);
 
-  return <ThoughtsContainer getThoughts={getThoughts} thoughts={thoughts} />;
+  return (
+    <ThoughtsContainer
+      getThoughts={getThoughts}
+      thoughts={thoughts}
+      loading={loading}
+    />
+  );
 }

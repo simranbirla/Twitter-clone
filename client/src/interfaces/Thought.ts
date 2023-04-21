@@ -1,12 +1,8 @@
+import { IThoughtUser } from "./User";
+
 export interface IThought {
   text: string;
-  userId: {
-    name: string;
-    photo: {
-      data: number[];
-    };
-    _id: string;
-  };
+  userId: IThoughtUser;
   likes: number;
   retweets: number;
   parentId?: string;

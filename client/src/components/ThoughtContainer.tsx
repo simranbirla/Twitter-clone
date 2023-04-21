@@ -8,6 +8,7 @@ import { useUserContext } from "../context/User";
 import { Link, useNavigate } from "react-router-dom";
 import { PageType } from "../enum/PageType";
 import DeleteButton from "./DeleteButton";
+import "../styles/thought.scss";
 
 export interface IThoughtContainer {
   id: string;
@@ -19,6 +20,7 @@ export interface IThoughtContainer {
   userId: {
     name: string;
     _id: string;
+    username: string;
   };
   isBookmark: boolean;
   getThought: () => void;
@@ -101,23 +103,24 @@ export default function ThoughtContainer({
   };
 
   return (
-    <div>
-      <div className="thought">
-        {text}
-        <div>
-          <Link to={`/profile/${userId._id}`}> Username: {userId.name}</Link>
+    <div className="thought">
+      <div className="thought__user-photo">
+        <Link to={`/profile/${userId._id}`}>
           <img
             src={photo}
             alt={userId.name}
             style={{ width: "100px", height: "100px", objectFit: "cover" }}
           />
+        </Link>
+      </div>
+      <div className="thought__details">
+        <Link to={`/thought/${id}`}>{text}</Link>
+        <div>
+          <Link to={`/profile/${userId._id}`}>
+            <p>{userId.name}</p>
+            <p>@{userId.username}</p>
+          </Link>
         </div>
-        <ThoughtForm
-          type={type}
-          id={id}
-          getThought={getThought}
-          getChildThoughts={getChildThoughts}
-        />
         {type === PageType.CHILD && (
           <button onClick={handleClick}>
             {showChild ? "Hide replies" : "Show replies"}
@@ -130,6 +133,12 @@ export default function ThoughtContainer({
         <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
         {children}
         {renderOptions()}
+        <ThoughtForm
+          type={type}
+          id={id}
+          getThought={getThought}
+          getChildThoughts={getChildThoughts}
+        />
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper

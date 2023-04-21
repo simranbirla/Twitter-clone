@@ -57,7 +57,7 @@ export default function ThoughtForm({
         value={thought}
       />
       <button onClick={handleClick} disabled={!thought}>
-        Tell
+        Reply
       </button>
     </form>
   );

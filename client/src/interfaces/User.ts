@@ -10,3 +10,12 @@ export interface IUser {
 export interface IUserDetails extends IUser {
   loggedIn: boolean;
 }
+
+export interface IThoughtUser {
+  name: string;
+  photo: {
+    data: number[];
+  };
+  _id: string;
+  username: string;
+}

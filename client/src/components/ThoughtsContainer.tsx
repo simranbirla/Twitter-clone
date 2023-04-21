@@ -10,21 +10,25 @@ import { PageType } from "../enum/PageType";
 export interface IThoughtsContainer {
   thoughts: IThought[];
   getThoughts: () => Promise<void>;
+  loading: boolean;
 }
 
 export default function ThoughtsContainer({
   thoughts,
   getThoughts,
+  loading,
 }: IThoughtsContainer) {
   const { bookmarks } = useBookmarkContext();
 
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
   return (
-    <div>
-      Thoughts
-      {thoughts ? (
+    <>
+      {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="thought">
-            <Link to={`/thought/${thought._id}`}>Click</Link>
+          <div key={thought._id} className="thoughts">
             <ThoughtContainer
               id={thought._id}
               shares={thought.retweets}
@@ -35,10 +39,7 @@ export default function ThoughtsContainer({
               {...thought}
             />
           </div>
-        ))
-      ) : (
-        <div>Loading</div>
-      )}
-    </div>
+        ))}
+    </>
   );
 }

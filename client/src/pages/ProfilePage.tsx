@@ -9,10 +9,13 @@ import { useUserContext } from "../context/User";
 export default function ProfilePage() {
   const { user } = useUserContext();
   const [thoughts, setThoughts] = useState<IThought[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getUsersThoughts = async () => {
+    setLoading(true);
     const { data } = await makeRequest("/tweet/user");
     setThoughts(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -24,9 +27,13 @@ export default function ProfilePage() {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Profile />
-      <ThoughtsContainer getThoughts={getUsersThoughts} thoughts={thoughts} />
-    </>
+      <ThoughtsContainer
+        getThoughts={getUsersThoughts}
+        thoughts={thoughts}
+        loading={loading}
+      />
+    </React.Fragment>
   );
 }

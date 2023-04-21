@@ -12,10 +12,13 @@ export default function UserProfilePage() {
   const { id } = useParams();
   const [user, setUser] = useState<IUser>();
   const [thoughts, setThoughts] = useState<IThought[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getUsersThoughts = async () => {
+    setLoading(true);
     const { data } = await makeRequest(`/tweet/user/${id}`);
     setThoughts(data);
+    setLoading(false);
   };
 
   const getUserInfo = async () => {
@@ -33,10 +36,14 @@ export default function UserProfilePage() {
 
   if (user) {
     return (
-      <>
+      <React.Fragment>
         <UserProfile {...user} />
-        <ThoughtsContainer getThoughts={getUsersThoughts} thoughts={thoughts} />
-      </>
+        <ThoughtsContainer
+          getThoughts={getUsersThoughts}
+          thoughts={thoughts}
+          loading={loading}
+        />
+      </React.Fragment>
     );
   }
 
