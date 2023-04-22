@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IoMdHome } from "react-icons/io";
 import { useUserContext } from "../context/User";
 import ThinkModal from "./ThinkModal";
 import { makeRequest } from "../utils/makeRequest";
@@ -18,7 +19,9 @@ export default function Navigation() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">
+              <IoMdHome /> Home
+            </Link>
           </li>
           <li>
             {user.loggedIn ? (
