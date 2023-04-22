@@ -53,7 +53,7 @@ export default function Navigation() {
         />
         <div className="navigation__name">
           <p>{user.name}</p>
-          <p className="navigation__name--username">@{user.username}</p>
+          <p className="navigation__name-username">@{user.username}</p>
         </div>
       </Link>
     </div>
