@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { IoMdShareAlt } from "react-icons/io";
+import { AiOutlineHeart } from "react-icons/ai";
 import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
@@ -123,9 +126,19 @@ export default function ThoughtContainer({
           </button>
         )}
         <div className="thought__actions">
-          <button onClick={likeThought}>❤️ {likes ?? 0}</button>
-          <button onClick={reThought}>📤 {shares ?? 0}</button>
-          <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
+          <button onClick={likeThought} className="thought__button like-btn">
+            <AiOutlineHeart />
+            {likes ?? 0}
+          </button>
+          <button onClick={reThought} className="thought__button share-btn">
+            <IoMdShareAlt /> {shares ?? 0}
+          </button>
+          <button
+            onClick={addBookmark}
+            className="thought__button bookmark-btn"
+          >
+            {isBookmark ? <BsBookmarkFill /> : <BsBookmark />}
+          </button>
         </div>
         {children}
         {renderOptions()}
