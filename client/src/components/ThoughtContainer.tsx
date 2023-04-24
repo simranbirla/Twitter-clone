@@ -106,31 +106,27 @@ export default function ThoughtContainer({
     <div className="thought">
       <div className="thought__user-photo">
         <Link to={`/profile/${userId._id}`}>
-          <img
-            src={photo}
-            alt={userId.name}
-            style={{ width: "100px", height: "100px", objectFit: "cover" }}
-          />
+          <img src={photo} alt={userId.name} />
         </Link>
       </div>
       <div className="thought__details">
-        <Link to={`/thought/${id}`}>{text}</Link>
-        <div>
-          <Link to={`/profile/${userId._id}`}>
-            <p>{userId.name}</p>
-            <p>@{userId.username}</p>
-          </Link>
-        </div>
+        <Link to={`/profile/${userId._id}`} className="thought__user-details">
+          <p>{userId.name}</p>
+          <p className="thought__user-details--username">@{userId.username}</p>
+        </Link>
+        <Link to={`/thought/${id}`} className="thought__text">
+          <p>{text}</p>
+        </Link>
         {type === PageType.CHILD && (
           <button onClick={handleClick}>
             {showChild ? "Hide replies" : "Show replies"}
           </button>
         )}
-        <p>Likes: {likes ?? 0}</p>
-        <p>reThought: {shares ?? 0}</p>
-        <button onClick={likeThought}>❤️</button>
-        <button onClick={reThought}>📤</button>
-        <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
+        <div className="thought__actions">
+          <button onClick={likeThought}>❤️ {likes ?? 0}</button>
+          <button onClick={reThought}>📤 {shares ?? 0}</button>
+          <button onClick={addBookmark}>{isBookmark ? "📑" : "📖"}</button>
+        </div>
         {children}
         {renderOptions()}
         <ThoughtForm
