@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { IoMdShareAlt } from "react-icons/io";
 import { AiOutlineHeart } from "react-icons/ai";
+import { FaEllipsisV } from "react-icons/fa";
 import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
 import { makeRequest } from "../utils/makeRequest";
@@ -12,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { PageType } from "../enum/PageType";
 import DeleteButton from "./DeleteButton";
 import "../styles/thought.scss";
+import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 
 export interface IThoughtContainer {
   id: string;
@@ -97,10 +99,22 @@ export default function ThoughtContainer({
   const renderOptions = () => {
     if (userId._id === userInfoId) {
       return (
-        <div>
-          <DeleteButton id={id} getThought={getThought} />
-          <button>Edit</button>
-        </div>
+        <Menu
+          menuButton={
+            <MenuButton className="thought__user-menu--btn">
+              <FaEllipsisV />
+            </MenuButton>
+          }
+          transition
+          menuClassName="thought__user-menu"
+        >
+          <MenuItem className="thought__user-menu--item">
+            <DeleteButton id={id} getThought={getThought} />
+          </MenuItem>
+          <MenuItem className="thought__user-menu--item">
+            <button>Edit</button>
+          </MenuItem>
+        </Menu>
       );
     }
   };

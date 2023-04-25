@@ -9,6 +9,7 @@
   display: flex;
   gap: 10px;
   padding: 20px;
+  position: relative;
 
   &__details {
     padding: 0 10px;
@@ -62,6 +63,24 @@
       width: 20px;
       height: 20px;
       color: #1d91f0;
+    }
+  }
+
+  &__user-menu {
+    background-color: #d6d5d580;
+    border-radius: 10px;
+    right: 0px !important;
+
+    li:hover {
+      background-color: #d6d5d5;
+      border-radius: 10px;
+    }
+
+    &--btn {
+      position: absolute;
+      right: 0px;
+      top: 10px;
+      margin: 0;
     }
   }
 }
