@@ -99,22 +99,24 @@ export default function ThoughtContainer({
   const renderOptions = () => {
     if (userId._id === userInfoId) {
       return (
-        <Menu
-          menuButton={
-            <MenuButton className="thought__user-menu--btn">
-              <FaEllipsisV />
-            </MenuButton>
-          }
-          transition
-          menuClassName="thought__user-menu"
-        >
-          <MenuItem className="thought__user-menu--item">
-            <DeleteButton id={id} getThought={getThought} />
-          </MenuItem>
-          <MenuItem className="thought__user-menu--item">
-            <button>Edit</button>
-          </MenuItem>
-        </Menu>
+        <div className="thought__user-menu--container">
+          <Menu
+            menuButton={
+              <MenuButton className="thought__user-menu--btn">
+                <FaEllipsisV />
+              </MenuButton>
+            }
+            transition
+            menuClassName="thought__user-menu"
+          >
+            <MenuItem className="thought__user-menu--item">
+              <DeleteButton id={id} getThought={getThought} />
+            </MenuItem>
+            <MenuItem className="thought__user-menu--item">
+              <button>Edit</button>
+            </MenuItem>
+          </Menu>
+        </div>
       );
     }
   };
@@ -155,7 +157,6 @@ export default function ThoughtContainer({
           </button>
         </div>
         {children}
-        {renderOptions()}
         <ThoughtForm
           type={type}
           id={id}
@@ -171,6 +172,7 @@ export default function ThoughtContainer({
             />
           ))}
       </div>
+      {renderOptions()}
     </div>
   );
 }
