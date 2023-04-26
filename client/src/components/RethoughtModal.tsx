@@ -26,15 +26,13 @@ export default function RethoughtModal() {
   };
 
   return (
-    <div>
-      <ModalCard
-        onOpenModal={openModal}
-        onCloseModal={closeModal}
-        heading="Shared By"
-        label="Reshared"
-        loading={loading}
-        users={users}
-      />
-    </div>
+    <ModalCard
+      onOpenModal={openModal}
+      onCloseModal={closeModal}
+      heading="Shared By"
+      label="Reshared"
+      loading={loading}
+      users={users}
+    />
   );
 }

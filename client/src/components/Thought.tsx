@@ -7,6 +7,7 @@ import LikeModal from "./LikeModal";
 import RethoughtModal from "./RethoughtModal";
 import { getBase64String } from "../utils/getBase64String";
 import { PageType } from "../enum/PageType";
+import "../styles/singleThought.scss";
 
 interface IThoughtList {
   thought: IThought;
@@ -18,40 +19,34 @@ export default function Thought({ thought, getThought, type }: IThoughtList) {
   const { bookmarks } = useBookmarkContext();
 
   return (
-    <>
-      {thought ? (
-        <div>
-          <ThoughtContainer
-            id={thought._id}
-            shares={thought.retweets}
-            type={type}
-            getThought={getThought}
-            isBookmark={getIsBookmarked(bookmarks, thought._id)}
-            photo={getBase64String(thought.userId.photo.data)}
-            {...thought}
-          >
-            <LikeModal />
-            <RethoughtModal />
-          </ThoughtContainer>
-          {thought.childIds?.map((child) => {
-            return (
-              <div key={child._id}>
-                <ThoughtContainer
-                  id={child._id as string}
-                  shares={child.retweets as number}
-                  type={PageType.CHILD}
-                  isBookmark={getIsBookmarked(bookmarks, child._id as string)}
-                  photo={getBase64String(child.userId?.photo.data as number[])}
-                  getThought={getThought}
-                  {...(child as IThought)}
-                />
-              </div>
-            );
-          })}
+    <div className="singleThought">
+      <ThoughtContainer
+        id={thought._id}
+        shares={thought.retweets}
+        type={type}
+        getThought={getThought}
+        isBookmark={getIsBookmarked(bookmarks, thought._id)}
+        photo={getBase64String(thought.userId.photo.data)}
+        {...thought}
+      >
+        <div className="singleThought__action-users">
+          <LikeModal />
+          <RethoughtModal />
         </div>
-      ) : (
-        <div>Loading</div>
-      )}
-    </>
+      </ThoughtContainer>
+      {thought.childIds?.map((child) => {
+        return (
+          <ThoughtContainer
+            id={child._id as string}
+            shares={child.retweets as number}
+            type={PageType.CHILD}
+            isBookmark={getIsBookmarked(bookmarks, child._id as string)}
+            photo={getBase64String(child.userId?.photo.data as number[])}
+            getThought={getThought}
+            {...(child as IThought)}
+          />
+        );
+      })}
+    </div>
   );
 }

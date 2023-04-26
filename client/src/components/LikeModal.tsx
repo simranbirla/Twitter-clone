@@ -25,15 +25,13 @@ export default function LikeModal() {
   };
 
   return (
-    <div>
-      <ModalCard
-        onOpenModal={openModal}
-        onCloseModal={closeModal}
-        label="Liked"
-        heading="Liked BY"
-        loading={loading}
-        users={users}
-      />
-    </div>
+    <ModalCard
+      onOpenModal={openModal}
+      onCloseModal={closeModal}
+      label="Liked"
+      heading="Liked By"
+      loading={loading}
+      users={users}
+    />
   );
 }

@@ -58,7 +58,7 @@ export default function ModalCard({
           <div>Loading</div>
         ) : (
           <>
-            <h2>Hello</h2>
+            <h2>{heading}</h2>
             <button onClick={closeModal}>close</button>
             {users.length > 0 ? (
               <div>
@@ -74,7 +74,7 @@ export default function ModalCard({
                 ))}
               </div>
             ) : (
-              <p>Nobody has liked the tweet</p>
+              <p>Nobody has {label} the tweet</p>
             )}
           </>
         )}

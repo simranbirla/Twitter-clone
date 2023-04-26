@@ -7,27 +7,31 @@ import { PageType } from "../enum/PageType";
 
 export default function SingleThought() {
   const [thought, setThought] = useState<IThought>();
+  const [loading, setLoading] = useState<boolean>(true);
   const { id } = useParams();
 
   const getThought = async () => {
     const { data } = await makeRequest(`/tweet/${id}`);
     setThought(data);
+    setLoading(false);
   };
 
   useEffect(() => {
     getThought();
   }, []);
 
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
   return (
     <>
-      {thought ? (
+      {thought && (
         <Thought
           thought={thought}
           getThought={getThought}
           type={PageType.SINGLE_THOUGHT}
         />
-      ) : (
-        <div>Loading</div>
       )}
     </>
   );
