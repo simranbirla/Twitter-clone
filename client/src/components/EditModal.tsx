@@ -1,5 +1,6 @@
 import React, { MouseEventHandler, useState } from "react";
 import Modal from "react-modal";
+import { MdOutlineModeEditOutline } from "react-icons/md";
 import { makeRequest } from "../utils/makeRequest";
 import { useUserContext } from "../context/User";
 
@@ -54,7 +55,9 @@ export default function EditModal({
 
   return (
     <div>
-      <button onClick={openModal}>Edit</button>
+      <button onClick={openModal}>
+        <MdOutlineModeEditOutline />
+      </button>
       <Modal
         isOpen={isOpen}
         onRequestClose={onCloseModal}

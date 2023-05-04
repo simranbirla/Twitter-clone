@@ -1,5 +1,6 @@
 import React from "react";
 import EditModal from "./EditModal";
+import "../styles/profile.scss";
 
 export interface IUserProfile {
   name: string;
@@ -19,27 +20,25 @@ export default function UserProfile({
   edit = false,
 }: IUserProfile) {
   return (
-    <div>
-      <div>
-        <h3>{name}</h3>
-        <img
-          src={photo}
-          alt={username}
-          style={{ width: "250px", height: "300px", objectFit: "cover" }}
-        />
+    <div className="profile">
+      <div className="profile__img">
+        <img src={photo} alt={username} />
       </div>
-      <div>
+      <div className="profile__user">
+        <h3 className="profile__user--name">{name}</h3>
         <p>{email}</p>
-        {status && <p>Status: {status}</p>}
-        {edit && (
-          <EditModal
-            text={status}
-            heading="Edit Status"
-            label="Edit"
-            placeholder="Edit User status"
-            name="status"
-          />
-        )}
+        <div className="profile__user--status">
+          {status && <p>{status}</p>}
+          {edit && (
+            <EditModal
+              text={status}
+              heading="Edit Status"
+              label="Edit"
+              placeholder="Edit User status"
+              name="status"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

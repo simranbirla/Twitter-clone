@@ -63,17 +63,19 @@ export default function Navigation() {
         </ul>
         <ThinkModal className="navigation__modal" />
       </nav>
-      <Link to="profile" className="navigation__user">
-        <img
-          src={user.photo}
-          alt={user.name}
-          className="navigation__user-img"
-        />
-        <div className="navigation__name">
-          <p>{user.name}</p>
-          <p className="navigation__name-username">@{user.username}</p>
-        </div>
-      </Link>
+      {user.loggedIn && (
+        <Link to="profile" className="navigation__user">
+          <img
+            src={user.photo}
+            alt={user.name}
+            className="navigation__user-img"
+          />
+          <div className="navigation__name">
+            <p>{user.name}</p>
+            <p className="navigation__name-username">@{user.username}</p>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

@@ -14,10 +14,5 @@ export default function Profile() {
     return <Navigate to="/login" />;
   }
 
-  return (
-    <div>
-      Profile
-      <UserProfile {...user} edit={true} />
-    </div>
-  );
+  return <UserProfile {...user} edit={true} />;
 }
