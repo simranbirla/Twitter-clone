@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { IoMdShareAlt } from "react-icons/io";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaEllipsisV } from "react-icons/fa";
 import { useBookmarkContext } from "../context/Bookmark";
 import { IThought } from "../interfaces/Thought";
@@ -14,6 +14,7 @@ import { PageType } from "../enum/PageType";
 import DeleteButton from "./DeleteButton";
 import "../styles/thought.scss";
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
+import { useLikeContext } from "../context/Likes";
 
 export interface IThoughtContainer {
   id: string;
@@ -28,6 +29,7 @@ export interface IThoughtContainer {
     username: string;
   };
   isBookmark: boolean;
+  isLiked: boolean;
   getThought: () => void;
   children?: React.ReactElement[] | React.ReactElement;
 }
@@ -39,6 +41,7 @@ export default function ThoughtContainer({
   shares,
   type,
   isBookmark = false,
+  isLiked = false,
   getThought,
   children,
   photo,
@@ -47,6 +50,7 @@ export default function ThoughtContainer({
   const [childThoughts, setChildThoughts] = useState<IThought[]>([]);
   const [showChild, setShowChild] = useState<boolean>(false);
   const { getBookmarks } = useBookmarkContext();
+  const { getLikes } = useLikeContext();
   const {
     user: { loggedIn, id: userInfoId },
   } = useUserContext();
@@ -87,6 +91,10 @@ export default function ThoughtContainer({
     await makeRequest(`/${type}/${id}`, {
       method: "POST",
     });
+
+    if (type === "like") {
+      getLikes();
+    }
 
     if (type === "bookmark") {
       getBookmarks();
@@ -143,7 +151,7 @@ export default function ThoughtContainer({
         )}
         <div className="thought__actions">
           <button onClick={likeThought} className="thought__button like-btn">
-            <AiOutlineHeart />
+            {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
             {likes ?? 0}
           </button>
           <button onClick={reThought} className="thought__button share-btn">

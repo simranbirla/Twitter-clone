@@ -4,6 +4,7 @@ import App from "./App";
 import { ThoughtsProvider } from "./context/Thoughts";
 import { UserStoreProvider } from "./context/User";
 import { BookmarkProvider } from "./context/Bookmark";
+import { LikeProvider } from "./context/Likes";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +13,9 @@ root.render(
   <ThoughtsProvider>
     <UserStoreProvider>
       <BookmarkProvider>
-        <App />
+        <LikeProvider>
+          <App />
+        </LikeProvider>
       </BookmarkProvider>
     </UserStoreProvider>
   </ThoughtsProvider>
