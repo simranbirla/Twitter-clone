@@ -13,8 +13,6 @@ export const likeTweet = async (req: Request, res: Response) => {
       return res.json({ status: 404, message: "Tweet Not found" });
     }
 
-    console.log(req.user);
-
     const user = req.user as IUser;
     const liked = await Likes.findOne({ tweetId: id, userId: user.id });
 

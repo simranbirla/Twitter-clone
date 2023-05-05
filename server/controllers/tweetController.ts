@@ -3,6 +3,7 @@ import Tweet from "../model/tweetModel";
 import Likes from "../model/likesModel";
 import { IUser } from "../model/userModel";
 import Retweet from "../model/retweetModel";
+import Bookmark from "../model/bookmarkModel";
 
 export const createTweet = async (req: Request, res: Response) => {
   try {
@@ -61,6 +62,11 @@ export const getTweet = async (req: Request, res: Response) => {
 export const deleteTweet = async (req: Request, res: Response) => {
   try {
     const tweet = await Tweet.findByIdAndDelete(req.params.id);
+
+    await Likes.find({ tweetId: req.params.id }).deleteMany();
+    await Retweet.find({ tweetId: req.params.id }).deleteMany();
+    await Bookmark.find({ tweetId: req.params.id }).deleteMany();
+
     if (!tweet) {
       return res.json({ status: 404, message: "Tweet Not found" });
     }
