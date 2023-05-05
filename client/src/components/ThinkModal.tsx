@@ -4,10 +4,11 @@ import ThoughtForm from "./ThoughtForm";
 import { useThoughtsContext } from "../context/Thoughts";
 import { PageType } from "../enum/PageType";
 import { useNavigate } from "react-router-dom";
+import "../styles/modal.scss";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "30%",
     left: "50%",
     right: "auto",
     bottom: "auto",
@@ -48,7 +49,6 @@ export default function ThinkModal(
         contentLabel={"Thinkkk"}
         style={customStyles}
       >
-        <div>Hello</div>
         <ThoughtForm type={PageType.MODAL} getThought={getThought} />
       </Modal>
     </div>
