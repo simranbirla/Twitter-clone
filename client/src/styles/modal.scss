@@ -1,0 +1,30 @@
+.modal {
+  background-color: aquamarine;
+}
+
+.thought-form.think-modal {
+  height: 300px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  textarea {
+    width: 100%;
+    height: 70%;
+    outline: none;
+    border: none;
+  }
+
+  button {
+    border-radius: 30px;
+    color: white;
+    background-color: #1d91f0;
+    width: 100%;
+
+    &:hover {
+      background-color: #027cdf;
+    }
+  }
+}
