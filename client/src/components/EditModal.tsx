@@ -3,17 +3,7 @@ import Modal from "react-modal";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { makeRequest } from "../utils/makeRequest";
 import { useUserContext } from "../context/User";
-
-const customStyles = {
-  content: {
-    top: "30%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import { customStyles } from "../utils/customStyle";
 
 export interface IEditModal {
   text: string;
