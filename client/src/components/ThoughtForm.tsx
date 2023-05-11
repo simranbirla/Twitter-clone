@@ -9,6 +9,7 @@ export interface IThoughtForm {
   type: PageType;
   getThought?: () => void;
   getChildThoughts?: () => void;
+  className?: string;
 }
 
 export default function ThoughtForm({
@@ -16,6 +17,7 @@ export default function ThoughtForm({
   type,
   getThought,
   getChildThoughts,
+  className,
 }: IThoughtForm) {
   const [thought, setThought] = useState<string>();
   const {
@@ -50,8 +52,8 @@ export default function ThoughtForm({
   };
 
   return (
-    <form>
-      <input
+    <form className={`thought-form ${className}`}>
+      <textarea
         placeholder="Add your thought"
         onChange={(e) => setThought(e.target.value)}
         value={thought}
