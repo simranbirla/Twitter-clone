@@ -44,7 +44,7 @@ export default function EditModal({
   };
 
   return (
-    <div>
+    <div className="edit-modal">
       <button onClick={openModal}>
         <MdOutlineModeEditOutline />
       </button>
@@ -54,9 +54,8 @@ export default function EditModal({
         contentLabel={heading}
         style={customStyles}
       >
-        <div>Hello</div>
-        <form>
-          <input
+        <form className="edit-modal--form">
+          <textarea
             placeholder={placeholder}
             onChange={(e) => setValue(e.target.value)}
             value={value}
