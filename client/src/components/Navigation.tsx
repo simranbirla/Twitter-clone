@@ -50,14 +50,10 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            {user.loggedIn ? (
+            {user.loggedIn && (
               <button onClick={logOut} className="navigation__logout button">
                 <FiLogOut /> Logout
               </button>
-            ) : (
-              <Link to="/login">
-                <FiLogIn /> Login
-              </Link>
             )}
           </li>
         </ul>
