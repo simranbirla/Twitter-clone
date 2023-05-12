@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
 import { useUserContext } from "../context/User";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
   const { user } = useUserContext();
@@ -10,10 +10,5 @@ export default function Login() {
     return <Navigate to="/profile" />;
   }
 
-  return (
-    <div>
-      <LoginForm />
-      <Link to="/signup">Signup</Link>
-    </div>
-  );
+  return <LoginForm />;
 }
