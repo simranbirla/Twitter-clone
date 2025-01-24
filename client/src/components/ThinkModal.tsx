@@ -3,14 +3,17 @@ import Modal from "react-modal";
 import ThoughtForm from "./ThoughtForm";
 import { useThoughtsContext } from "../context/Thoughts";
 import { PageType } from "../enum/PageType";
-import { useNavigate } from "react-router-dom";
 import "../styles/modal.scss";
 import { customStyles } from "../utils/customStyle";
+import { useUserContext } from "../context/User";
+import { useNavigate } from "react-router";
+
 
 export default function ThinkModal(
   props: React.HTMLAttributes<HTMLDivElement>
 ) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { user } = useUserContext()
   const { getThoughts } = useThoughtsContext();
   const navigate = useNavigate();
 
@@ -19,6 +22,11 @@ export default function ThinkModal(
   };
 
   const openModal = () => {
+    if (!user.loggedIn) {
+      return navigate("/login");
+    }
+
+
     setIsOpen(true);
   };
 
@@ -31,12 +39,12 @@ export default function ThinkModal(
   return (
     <div className="modal" {...props}>
       <button onClick={openModal} className="modal__button">
-        Thinkkk
+        Post
       </button>
       <Modal
         isOpen={isOpen}
         onRequestClose={onCloseModal}
-        contentLabel={"Thinkkk"}
+        contentLabel={"Post"}
         style={customStyles}
       >
         <ThoughtForm

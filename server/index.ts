@@ -14,13 +14,13 @@ import likeRoutes from "./routes/likeRoutes";
 import bookmarkRoutes from "./routes/bookmarkRoutes";
 import retweetRoutes from "./routes/retweetRoutes";
 
+
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-expressBusboy.extend(app, {
-  upload: true,
-});
+
+app.use(express.urlencoded({ extended: true }))
+
 app.use(passport.initialize());
 
 app.use(

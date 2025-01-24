@@ -19,7 +19,7 @@ export default function ThoughtForm({
   getChildThoughts,
   className,
 }: IThoughtForm) {
-  const [thought, setThought] = useState<string>();
+  const [thought, setThought] = useState<string>('');
   const {
     user: { loggedIn },
   } = useUserContext();

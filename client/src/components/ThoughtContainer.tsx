@@ -131,16 +131,19 @@ export default function ThoughtContainer({
 
   return (
     <div className="thought">
-      <div className="thought__user-photo">
-        <Link to={`/profile/${userId._id}`}>
-          <img src={photo} alt={userId.name} />
-        </Link>
-      </div>
       <div className="thought__details">
-        <Link to={`/profile/${userId._id}`} className="thought__user-details">
-          <p>{userId.name}</p>
-          <p className="thought__user-details--username">@{userId.username}</p>
-        </Link>
+        <div className="thought__user">
+          <div className="thought__user-photo">
+            <Link to={`/profile/${userId._id}`}>
+              <img src={photo} alt={userId.name} />
+            </Link>
+          </div>
+          <Link to={`/profile/${userId._id}`} className="thought__user-details">
+            <p>{userId.name}</p>
+            <p className="thought__user-details--username">@{userId.username}</p>
+          </Link>
+        </div>
+
         <Link to={`/thought/${id}`} className="thought__text">
           <p>{text}</p>
         </Link>
@@ -149,6 +152,7 @@ export default function ThoughtContainer({
             {showChild ? "Hide replies" : "Show replies"}
           </button>
         )}
+        {children}
         <div className="thought__actions">
           <button onClick={likeThought} className="thought__button like-btn">
             {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
@@ -164,13 +168,14 @@ export default function ThoughtContainer({
             {isBookmark ? <BsBookmarkFill /> : <BsBookmark />}
           </button>
         </div>
-        {children}
         <ThoughtForm
           type={type}
           id={id}
           getThought={getThought}
           getChildThoughts={getChildThoughts}
+          className="main-page"
         />
+
         {showChild &&
           childThoughts.map((child) => (
             <ThoughtWrapper

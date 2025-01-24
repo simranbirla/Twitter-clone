@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeRequest } from "../utils/makeRequest";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/User";
+import "../styles/signup.scss";
 
 interface FormData {
   username: string;
@@ -40,6 +41,9 @@ export default function SignUpForm() {
     setImage(e.target.files && e.target.files[0]);
   };
 
+
+  console.log(image)
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const { username, name, email, password, passwordConfirm } = formData;
@@ -69,56 +73,77 @@ export default function SignUpForm() {
   };
 
   return (
-    <div>
+    <div className="signup-form">
+      <h2>Sign In Now</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input
-          type="text"
-          name="username"
-          placeholder="Enter Username"
-          onChange={handleFormData}
-          value={formData.username}
-          required
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter name"
-          onChange={handleFormData}
-          value={formData.name}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          onChange={handleFormData}
-          value={formData.email}
-          required
-        />
-        <input
-          type="file"
-          name="image"
-          placeholder="Select an image"
-          onChange={handleFileChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          onChange={handleFormData}
-          value={formData.password}
-          required
-        />
-        <input
-          type="password"
-          name="passwordConfirm"
-          placeholder="Confirm password"
-          onChange={handleFormData}
-          value={formData.passwordConfirm}
-          required
-        />
-        <button type="submit">Submit</button>
+        <div className="form-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            onChange={handleFormData}
+            value={formData.username}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter name"
+            onChange={handleFormData}
+            value={formData.name}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            onChange={handleFormData}
+            value={formData.email}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Image</label>
+          <input
+            type="file"
+            name="image"
+            placeholder="Select an image"
+            onChange={handleFileChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            onChange={handleFormData}
+            value={formData.password}
+            required
+          />
+        </div>
+
+
+
+        <div className="form-group">
+          <input
+            type="password"
+            name="passwordConfirm"
+            placeholder="Confirm password"
+            onChange={handleFormData}
+            value={formData.passwordConfirm}
+            required
+          />
+        </div>
+        <button type="submit" className="submit-btn">Submit</button>
       </form>
     </div>
   );
