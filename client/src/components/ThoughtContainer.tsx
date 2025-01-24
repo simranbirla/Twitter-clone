@@ -15,6 +15,7 @@ import DeleteButton from "./DeleteButton";
 import "../styles/thought.scss";
 import { Menu, MenuButton, MenuItem } from "@szhsin/react-menu";
 import { useLikeContext } from "../context/Likes";
+import { CgChevronDown, CgChevronUp } from "react-icons/cg";
 
 export interface IThoughtContainer {
   id: string;
@@ -147,11 +148,6 @@ export default function ThoughtContainer({
         <Link to={`/thought/${id}`} className="thought__text">
           <p>{text}</p>
         </Link>
-        {type === PageType.CHILD && (
-          <button onClick={handleClick}>
-            {showChild ? "Hide replies" : "Show replies"}
-          </button>
-        )}
         {children}
         <div className="thought__actions">
           <button onClick={likeThought} className="thought__button like-btn">
@@ -167,6 +163,12 @@ export default function ThoughtContainer({
           >
             {isBookmark ? <BsBookmarkFill /> : <BsBookmark />}
           </button>
+          {type === PageType.CHILD && (
+            <button onClick={handleClick} className="thought__button bookmark-btn"
+            >
+              {showChild ? <CgChevronUp /> : <CgChevronDown />}
+            </button>
+          )}
         </div>
         <ThoughtForm
           type={type}

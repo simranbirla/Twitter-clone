@@ -4,6 +4,7 @@ import { makeRequest } from "../utils/makeRequest";
 import { IUser } from "../interfaces/User";
 import { getBase64String } from "../utils/getBase64String";
 import ModalCard from "./Modal";
+import { BsHeartFill } from "react-icons/bs";
 
 export default function LikeModal() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -28,7 +29,7 @@ export default function LikeModal() {
     <ModalCard
       onOpenModal={openModal}
       onCloseModal={closeModal}
-      label="Liked"
+      label={<BsHeartFill />}
       heading="Liked By"
       loading={loading}
       users={users}

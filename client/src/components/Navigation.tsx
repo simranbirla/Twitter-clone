@@ -9,13 +9,18 @@ import { useUserContext } from "../context/User";
 import ThinkModal from "./ThinkModal";
 import { makeRequest } from "../utils/makeRequest";
 import "../styles/navigation.scss";
+import { useNavigate } from "react-router";
+
 
 export default function Navigation() {
+  const navigate = useNavigate()
+
   const { user, getUser } = useUserContext();
 
   const logOut = async () => {
     await makeRequest("/auth/logout", { method: "POST" });
     await getUser();
+    navigate("/")
   };
 
   return (

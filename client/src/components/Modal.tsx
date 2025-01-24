@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import UserCard from "./UserCard";
 import { IUser } from "../interfaces/User";
 import { customStyles } from "../utils/customStyle";
+import { CgClose } from "react-icons/cg";
 
 Modal.setAppElement("#root");
 
@@ -10,7 +11,7 @@ export interface IModal {
   onOpenModal: () => void;
   onCloseModal: () => void;
   heading: string;
-  label: string;
+  label: string | React.ReactElement;
   users: IUser[];
   loading: boolean;
 }
@@ -36,7 +37,7 @@ export default function ModalCard({
   };
 
   return (
-    <div>
+    <div className="modal-container">
       <button onClick={openModal}>{label}</button>
       <Modal
         isOpen={modalIsOpen}
@@ -49,7 +50,7 @@ export default function ModalCard({
         ) : (
           <>
             <h2>{heading}</h2>
-            <button onClick={closeModal}>close</button>
+            <button onClick={closeModal}><CgClose /></button>
             {users.length > 0 ? (
               <div>
                 {users.map((user) => (
@@ -64,7 +65,7 @@ export default function ModalCard({
                 ))}
               </div>
             ) : (
-              <p>Nobody has {label} the tweet</p>
+              <p>None</p>
             )}
           </>
         )}

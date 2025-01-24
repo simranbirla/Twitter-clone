@@ -4,6 +4,7 @@ import { makeRequest } from "../utils/makeRequest";
 import { IUser } from "../interfaces/User";
 import { getBase64String } from "../utils/getBase64String";
 import ModalCard from "./Modal";
+import { IoIosShare } from "react-icons/io";
 
 export default function RethoughtModal() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -30,7 +31,7 @@ export default function RethoughtModal() {
       onOpenModal={openModal}
       onCloseModal={closeModal}
       heading="Shared By"
-      label="Reshared"
+      label={<IoIosShare />}
       loading={loading}
       users={users}
     />

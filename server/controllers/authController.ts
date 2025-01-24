@@ -141,7 +141,7 @@ export const sendToken = (req: Request, res: Response) => {
       ),
       httpOnly: true,
       domain: "localhost",
-      //secure: true,
+      secure: true,
     };
 
     res.cookie("jwt", token, cookieOptions);
